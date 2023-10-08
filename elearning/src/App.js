@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "./hook/ProtectedRoute";
 import CourseInfo from "./course/CourseInfo";
 
+import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
