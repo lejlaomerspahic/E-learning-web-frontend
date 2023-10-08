@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Prijava.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 function Registracija() {
   const navigate = useNavigate();
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -20,7 +22,7 @@ function Registracija() {
   const [locationError, setLocationError] = useState("");
   const [agreeTermsError, setAgreeTermsError] = useState("");
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     let hasError = false;
 
     setNameError("");
@@ -28,7 +30,7 @@ function Registracija() {
     setPasswordError("");
     setLocationError("");
     setPasswordRepeatError("");
-
+    setAgreeTermsError("");
     if (!name) {
       setNameError("Name is a required field.");
       hasError = true;
@@ -76,7 +78,18 @@ function Registracija() {
     if (hasError) {
       return;
     }
-    navigate("/home");
+    try {
+      const response = await axios.post("/api/register", {
+        name,
+        email,
+        password,
+        location,
+      });
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
@@ -219,7 +232,7 @@ function Registracija() {
                     value=""
                     id="form2Example3"
                     checked={agreeTerms}
-                    onChange={() => setAgreeTerms(!agreeTerms)}
+                    onChange={() => setAgreeTerms(true)}
                   />
                   <p className="small  mt-1">
                     I agree to the{" "}
