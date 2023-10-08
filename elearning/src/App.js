@@ -1,15 +1,17 @@
 import "./App.css";
-import FirstPage from "./components/FirstPage";
+import Pocetna from "./components/Pocetna";
 import Prijava from "./components/Prijava";
 
 import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
+import Registracija from "./components/Registracija";
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<FirstPage />}></Route>
+          <Route path="/" element={<Pocetna />}></Route>
           <Route path="/prijava" element={<Prijava />}></Route>
+          <Route path="/registracija" element={<Registracija />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,11 +1,15 @@
 import React from "react";
-import "./FirstPage.css";
+import "./Pocetna.css";
 import { Link, useNavigate } from "react-router-dom";
 
-function FirstPage() {
+function Pocetna() {
   const navigate = useNavigate();
   const handlePrijaviSeClick = () => {
     navigate("/prijava");
+  };
+
+  const handleRegistrujSeClick = () => {
+    navigate("/registracija");
   };
 
   let backgroundImage =
@@ -13,15 +17,20 @@ function FirstPage() {
   return (
     <div className="home-container">
       <div className="content">
-        <h1>Dobrodošli!</h1>
-        <h2>Jeste li spremni da učite?</h2>
-        <h3>
-          Ova aplikacija sadrži mnoštvo sadržaja koji će olakšati vaše učenje!
-        </h3>
+        <h1 style={{ fontWeight: "bold", fontSize: "50px" }}>Welcome!</h1>
+        <h3>Are you ready to learn?</h3>
+        <h6>
+          This application contains a wealth of content that will facilitate
+          your learning!{" "}
+        </h6>
         <div className="buttons">
-          <button onClick={handlePrijaviSeClick}>PRIJAVA</button>
+          <button className="button" onClick={handlePrijaviSeClick}>
+            SIGN IN
+          </button>
 
-          <button>REGISTRACIJA</button>
+          <button onClick={handleRegistrujSeClick} className="button">
+            SIGN UP
+          </button>
         </div>
       </div>
       <div className="imageContainer">
@@ -35,4 +44,4 @@ function FirstPage() {
   );
 }
 
-export default FirstPage;
+export default Pocetna;
