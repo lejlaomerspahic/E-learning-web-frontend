@@ -5,11 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 function Pocetna() {
   const navigate = useNavigate();
   const handlePrijaviSeClick = () => {
-    navigate("/prijava");
+    navigate("/user/signin");
   };
 
   const handleRegistrujSeClick = () => {
-    navigate("/user/registracija");
+    navigate("/user/signup");
   };
 
   let backgroundImage =

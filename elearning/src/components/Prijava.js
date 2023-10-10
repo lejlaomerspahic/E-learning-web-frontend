@@ -9,12 +9,69 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
+import { variable } from "../variable";
 function Prijava() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const handleLogin = () => {
-    navigate("/home");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const handleLogin = async () => {
+    let hasError = false;
+
+    setEmailError("");
+    setPasswordError("");
+
+    if (!email) {
+      setEmailError("Email is a required field.");
+      hasError = true;
+    } else if (
+      !email.includes("@") ||
+      (!email.endsWith(".com") && !email.endsWith(".ba"))
+    ) {
+      setEmailError("Invalid email format.");
+      hasError = true;
+    }
+
+    if (!password) {
+      setPasswordError("Password is a required field.");
+      hasError = true;
+    } else if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long.");
+      hasError = true;
+    }
+
+    if (hasError) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${variable}/user/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          rememberMe,
+        }),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        navigate("/home");
+      } else {
+        console.error("Error during registration:", response.status);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
   return (
     <section class="vh-100">
@@ -72,24 +129,49 @@ function Prijava() {
                   id="form3Example3"
                   class="form-control form-control-lg"
                   placeholder="Email"
+                  onChange={(email) => setEmail(email.target.value)}
                 />
               </div>
-
+              {emailError ? (
+                <p
+                  style={{
+                    color: "#0d9eff",
+                    marginBottom: 3,
+                    marginTop: -15,
+                    marginLeft: 3,
+                  }}
+                >
+                  {emailError}
+                </p>
+              ) : null}
               <div class="form-outline mb-3">
                 <input
                   type="password"
                   id="form3Example4"
                   class="form-control form-control-lg"
                   placeholder="Password"
+                  onChange={(password) => setPassword(password.target.value)}
                 />
               </div>
-
+              {passwordError ? (
+                <p
+                  style={{
+                    color: "#0d9eff",
+                    marginBottom: 3,
+                    marginTop: -15,
+                    marginLeft: 3,
+                  }}
+                >
+                  {passwordError}
+                </p>
+              ) : null}
               <div class="d-flex justify-content-between align-items-center">
                 <div class="form-check mb-0">
                   <input
                     class="form-check-input me-2"
                     type="checkbox"
-                    value=""
+                    value={rememberMe}
+                    onChange={() => setRememberMe(true)}
                     id="form2Example3"
                   />
                   <label class="form-check-label" for="form2Example3">
@@ -115,7 +197,7 @@ function Prijava() {
                     background: "#035dbd",
                     fontWeight: "Bold",
                   }}
-                  onClick={handleLogin}
+                  onClick={() => handleLogin()}
                 >
                   SIGN IN
                 </button>

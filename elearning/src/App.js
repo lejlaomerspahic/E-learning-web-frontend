@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Pocetna />}></Route>
-          <Route path="/prijava" element={<Prijava />}></Route>
-          <Route path="/user/registracija" element={<Registracija />}></Route>
+          <Route path="/user/signin" element={<Prijava />}></Route>
+          <Route path="/user/signup" element={<Registracija />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
