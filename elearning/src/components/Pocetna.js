@@ -9,7 +9,7 @@ function Pocetna() {
   };
 
   const handleRegistrujSeClick = () => {
-    navigate("/registracija");
+    navigate("/user/registracija");
   };
 
   let backgroundImage =

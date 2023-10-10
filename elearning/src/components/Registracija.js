@@ -4,12 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Prijava.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { variable } from "../variable";
 
 function Registracija() {
   const navigate = useNavigate();
   const [agreeTerms, setAgreeTerms] = useState(false);
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
@@ -31,7 +32,7 @@ function Registracija() {
     setLocationError("");
     setPasswordRepeatError("");
     setAgreeTermsError("");
-    if (!name) {
+    if (!username) {
       setNameError("Name is a required field.");
       hasError = true;
     }
@@ -78,15 +79,28 @@ function Registracija() {
     if (hasError) {
       return;
     }
+
     try {
-      const response = await axios.post("/api/register", {
-        name,
-        email,
-        password,
-        location,
+      const response = await fetch(`${variable}/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          location,
+        }),
       });
 
-      navigate("/home");
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        navigate("/home");
+      } else {
+        console.error("Error during registration:", response.status);
+      }
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -119,7 +133,7 @@ function Registracija() {
                   id="form3Example4"
                   className="form-control form-control-lg"
                   placeholder="Name"
-                  onChange={(name) => setName(name.target.value)}
+                  onChange={(username) => setUsername(username.target.value)}
                 />
               </div>
               {nameError ? (

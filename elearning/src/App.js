@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Pocetna />}></Route>
           <Route path="/prijava" element={<Prijava />}></Route>
-          <Route path="/registracija" element={<Registracija />}></Route>
+          <Route path="/user/registracija" element={<Registracija />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
