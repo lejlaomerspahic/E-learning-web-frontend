@@ -19,7 +19,7 @@ const Navbar = () => {
         display: "flex",
         justifyContent: "space-between",
         flexDirection: "row",
-        backgroundColor: "navy",
+        backgroundColor: "rgba(128, 128, 128, 0.578)",
         color: "white",
         paddingLeft: "20px",
         paddingRight: "20px",
@@ -78,9 +78,24 @@ const Navbar = () => {
         </ul>
       </div>
       <ul className="ulul">
-        <li className="nav-item">Home</li>
-        <li className="nav-item">About</li>
-        <li className="nav-item">Cart</li>
+        <li
+          className="nav-item"
+          onClick={() => (window.location.pathname = "/home")}
+        >
+          Home
+        </li>
+        <li
+          className="nav-item"
+          onClick={() => (window.location.pathname = "/about")}
+        >
+          About
+        </li>
+        <li
+          className="nav-item"
+          onClick={() => (window.location.pathname = "/cart")}
+        >
+          Cart
+        </li>
       </ul>
       <ul className="ulul">
         <li className="nav-item user-section">
