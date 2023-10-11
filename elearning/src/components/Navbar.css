@@ -1,0 +1,51 @@
+.menu-toggle {
+  z-index: 2;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: navy;
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.sidebar-open {
+  left: 0;
+}
+
+.li:hover {
+  background-color: rebeccapurple;
+}
+
+/* Navbar.css */
+
+.ulul {
+  list-style-type: none;
+  display: flex;
+  align-items: center; /* Postavite opcije vertikalno u sredinu */
+  margin: 10px;
+}
+
+.nav-item {
+  margin: 0 20px; /* Dodajte margine između opcija */
+  font-size: 18px; /* Postavite veličinu fonta za opcije */
+}
+
+.user-section {
+  display: flex;
+  align-items: center; /* Postavite ikonu i informacije o korisniku vertikalno u sredinu */
+}
+
+.user-icon {
+  /* Dodajte stilove za krug sa slikom */
+}
+
+.user-info {
+  margin-left: 10px; /* Dodajte razmak između ikone i teksta korisnika */
+  font-size: 18px; /* Postavite veličinu fonta za tekst korisnika */
+}
