@@ -22,30 +22,27 @@
   background-color: rebeccapurple;
 }
 
-/* Navbar.css */
-
 .ulul {
   list-style-type: none;
   display: flex;
-  align-items: center; /* Postavite opcije vertikalno u sredinu */
+  align-items: center;
   margin: 10px;
 }
 
 .nav-item {
-  margin: 0 20px; /* Dodajte margine između opcija */
-  font-size: 18px; /* Postavite veličinu fonta za opcije */
+  margin: 0 20px;
+  font-size: 18px;
 }
 
 .user-section {
   display: flex;
-  align-items: center; /* Postavite ikonu i informacije o korisniku vertikalno u sredinu */
+  align-items: center;
 }
 
 .user-icon {
-  /* Dodajte stilove za krug sa slikom */
 }
 
 .user-info {
-  margin-left: 10px; /* Dodajte razmak između ikone i teksta korisnika */
-  font-size: 18px; /* Postavite veličinu fonta za tekst korisnika */
+  margin-left: 10px;
+  font-size: 18px;
 }
