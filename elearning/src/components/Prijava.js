@@ -65,10 +65,15 @@ function Prijava() {
 
       if (response.ok) {
         const responseData = await response.json();
-        setUser((prevUser) => ({
-          ...prevUser,
-          ...responseData,
-        }));
+        setUser(responseData);
+        if (responseData.token) {
+          const jsonUserData = JSON.stringify(responseData);
+
+          document.cookie = `jwtToken=${jsonUserData}; expires=${new Date(
+            new Date().getTime() + 5 * 24 * 60 * 60 * 1000
+          )}`;
+        }
+
         navigate("/home");
       } else {
         console.error("Error during login:", response.status);

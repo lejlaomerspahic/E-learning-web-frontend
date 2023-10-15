@@ -98,7 +98,6 @@ function Registracija() {
 
       if (response.ok) {
         const responseData = await response.json();
-        setUser(responseData);
         navigate("/user/signin");
       } else {
         console.error("Error during registration:", response.status);

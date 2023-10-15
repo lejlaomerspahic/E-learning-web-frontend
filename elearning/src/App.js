@@ -10,7 +10,6 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
-        {" "}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Pocetna />}></Route>
