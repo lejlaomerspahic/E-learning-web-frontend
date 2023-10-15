@@ -10,7 +10,7 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { variable } from "../variable";
-import { useUser } from "../hook/useUser";
+import { user, useUser } from "../hook/useUser";
 function Prijava() {
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ function Prijava() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const handleLogin = async () => {
     let hasError = false;
 
@@ -65,16 +65,19 @@ function Prijava() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
-        setUser(responseData);
+        setUser((prevUser) => ({
+          ...prevUser,
+          ...responseData,
+        }));
         navigate("/home");
       } else {
-        console.error("Error during registration:", response.status);
+        console.error("Error during login:", response.status);
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error("Error during login:", error);
     }
   };
+
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom">

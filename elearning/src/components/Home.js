@@ -5,6 +5,7 @@ import { useUser } from "../hook/useUser";
 
 function Home() {
   const { user } = useUser();
+  console.log("user");
   console.log(user);
   return (
     <div>

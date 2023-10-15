@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { variable } from "../variable";
 
+import { useUser } from "../hook/useUser";
 function Registracija() {
   const navigate = useNavigate();
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -23,6 +24,7 @@ function Registracija() {
   const [locationError, setLocationError] = useState("");
   const [agreeTermsError, setAgreeTermsError] = useState("");
 
+  const { setUser } = useUser();
   const handleRegistration = async () => {
     let hasError = false;
 
@@ -96,8 +98,8 @@ function Registracija() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
-        navigate("/signin");
+        setUser(responseData);
+        navigate("/user/signin");
       } else {
         console.error("Error during registration:", response.status);
       }

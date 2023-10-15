@@ -4,6 +4,7 @@ import { FaTimes, FaBars } from "react-icons/fa";
 import "./Navbar.css";
 import { SidebarData } from "../Sidebar";
 
+import { useUser } from "../hook/useUser";
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -12,6 +13,7 @@ const Navbar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const { user } = useUser();
   return (
     <nav
       className="navbar"
@@ -100,7 +102,7 @@ const Navbar = () => {
       <ul className="ulul">
         <li className="nav-item user-section">
           <div className="user-icon"></div>
-          <div className="user-info">Hello, Ime Usera</div>
+          <div className="user-info">Hello, {user.username}</div>
         </li>
       </ul>
     </nav>
