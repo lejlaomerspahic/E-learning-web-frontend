@@ -1,0 +1,25 @@
+.containerStyle {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 95px;
+  padding-right: 95px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.text {
+  width: 700px;
+  margin-right: 100px;
+  font-size: 18px;
+  text-align: justify;
+  color: gray;
+  font-weight: 600;
+}
+
+.imageStyle {
+  height: 450px;
+}

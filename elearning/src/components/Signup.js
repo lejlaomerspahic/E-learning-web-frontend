@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Prijava.css";
+import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { variable } from "../variable";
 
 import { useUser } from "../hook/useUser";
-function Registracija() {
+function Signup() {
   const navigate = useNavigate();
   const [agreeTerms, setAgreeTerms] = useState(false);
 
@@ -308,4 +308,4 @@ function Registracija() {
   );
 }
 
-export default Registracija;
+export default Signup;

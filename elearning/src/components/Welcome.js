@@ -1,5 +1,5 @@
 import React from "react";
-import "./Pocetna.css";
+import "./Welcome.css";
 import { Link, useNavigate } from "react-router-dom";
 
 function Pocetna() {
@@ -36,7 +36,7 @@ function Pocetna() {
       <div className="imageContainer">
         <img
           src={backgroundImage}
-          alt="Pozadinska slika"
+          alt="Background photo"
           className="background-image"
         />
       </div>

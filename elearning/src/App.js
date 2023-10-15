@@ -1,9 +1,9 @@
 import "./App.css";
-import Pocetna from "./components/Pocetna";
-import Prijava from "./components/Prijava";
+import Welcome from "./components/Welcome";
+import Signin from "./components/Signin";
 
 import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
-import Registracija from "./components/Registracija";
+import Signup from "./components/Signup";
 import Home from "./components/Home";
 import UserProvider from "./hook/useUser";
 function App() {
@@ -12,9 +12,9 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Pocetna />}></Route>
-            <Route path="/user/signin" element={<Prijava />}></Route>
-            <Route path="/user/signup" element={<Registracija />}></Route>
+            <Route path="/" element={<Welcome />}></Route>
+            <Route path="/user/signin" element={<Signin />}></Route>
+            <Route path="/user/signup" element={<Signup />}></Route>
             <Route path="/home" element={<Home />}></Route>
           </Routes>
         </BrowserRouter>

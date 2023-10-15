@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import SlikaBackground from "./SlikaBackground";
+import BackgroundPhoto from "./BackgroundPhoto";
 import { useUser } from "../hook/useUser";
 import React, { useEffect } from "react";
 import jwt_decode from "jwt-decode";
@@ -31,7 +31,7 @@ function Home() {
         ...prevUser,
         ...userData,
       }));
-    } else {
+    } else if (!user) {
       navigate("/user/signin");
     }
   }, [setUser]);
@@ -41,7 +41,7 @@ function Home() {
       {user !== null ? (
         <div>
           <Navbar />
-          <SlikaBackground />
+          <BackgroundPhoto />
         </div>
       ) : null}
     </div>

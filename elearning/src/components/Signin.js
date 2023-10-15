@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Prijava.css";
+import "./Signin.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
@@ -11,7 +11,7 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { variable } from "../variable";
 import { user, useUser } from "../hook/useUser";
-function Prijava() {
+function Signin() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -66,6 +66,8 @@ function Prijava() {
       if (response.ok) {
         const responseData = await response.json();
         setUser(responseData);
+
+        navigate("/home");
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);
 
@@ -73,8 +75,6 @@ function Prijava() {
             new Date().getTime() + 5 * 24 * 60 * 60 * 1000
           )}`;
         }
-
-        navigate("/home");
       } else {
         console.error("Error during login:", response.status);
       }
@@ -230,4 +230,4 @@ function Prijava() {
   );
 }
 
-export default Prijava;
+export default Signin;
