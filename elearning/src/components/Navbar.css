@@ -32,6 +32,7 @@
 .nav-item {
   margin: 0 20px;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .user-section {
