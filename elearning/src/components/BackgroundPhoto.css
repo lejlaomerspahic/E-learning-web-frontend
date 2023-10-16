@@ -1,19 +1,20 @@
 .containerStyle {
   display: flex;
   justify-content: space-between;
-  padding-left: 95px;
-  padding-right: 95px;
+  padding-left: 85px;
+  padding-right: 85px;
   padding-top: 5px;
   box-sizing: border-box;
   align-items: center;
-  height: 100%;
-  width: 100%;
   position: relative;
+  border: 2px solid none;
+  border-radius: 30px;
+  margin: 40px;
+  background-color: rgba(203, 209, 238, 0.228);
 }
 
 .text {
-  width: 700px;
-  margin-right: 100px;
+  width: 550px;
   font-size: 18px;
   text-align: justify;
   color: gray;

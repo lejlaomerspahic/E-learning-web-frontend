@@ -2,8 +2,9 @@ import Navbar from "./Navbar";
 import BackgroundPhoto from "./BackgroundPhoto";
 import { useUser } from "../hook/useUser";
 import React, { useEffect } from "react";
-import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import Course from "./Course";
+
 function Home() {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function Home() {
         <div>
           <Navbar />
           <BackgroundPhoto />
+          <Course />
         </div>
       ) : null}
     </div>
