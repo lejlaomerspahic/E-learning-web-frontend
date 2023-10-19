@@ -65,15 +65,15 @@ function Signin() {
 
       if (response.ok) {
         const responseData = await response.json();
+        console.log("responseData");
+        console.log(responseData);
         setUser(responseData);
         navigate("/home");
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);
           const now = new Date();
           now.setUTCMinutes(now.getUTCMinutes() + 1);
-
           const expires = now.toUTCString();
-
           document.cookie = `jwtToken=${jsonUserData}; expires=${expires}; path=/`;
         }
       }

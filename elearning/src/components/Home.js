@@ -8,6 +8,7 @@ import Somethingforyou from "./Somethingforyou";
 
 function Home() {
   const { user, setUser } = useUser();
+  console.log("user");
   console.log(user);
   const navigate = useNavigate();
   useEffect(() => {
@@ -33,26 +34,23 @@ function Home() {
         ...prevUser,
         ...userData,
       }));
-    } else {
+    } else if (!user) {
       navigate("/user/signin");
     }
   }, [setUser]);
 
-  console.log(user);
   return (
     <div>
-      <div>
-        {user !== null ? (
-          <div>
-            <Navbar />
-            <BackgroundPhoto />
-            <Course />
-            <Somethingforyou />
-          </div>
-        ) : (
-          navigate("/user/signin")
-        )}
-      </div>
+      {user !== null ? (
+        <div>
+          <Navbar />
+          <BackgroundPhoto />
+          <Course />
+          <Somethingforyou />
+        </div>
+      ) : (
+        navigate("/user/signin")
+      )}
     </div>
   );
 }
