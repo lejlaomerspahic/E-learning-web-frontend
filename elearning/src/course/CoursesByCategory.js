@@ -5,6 +5,7 @@ import { useUser } from "../hook/useUser";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./CoursesByCategory.css";
+import CourseCart from "./CourseCart";
 
 function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
@@ -14,7 +15,7 @@ function CoursesByCategory({ route }) {
   useEffect(() => {
     const handleSearch = async () => {
       try {
-        const config = {};
+        let config = {};
         if (user !== null) {
           config = {
             headers: {
@@ -36,8 +37,10 @@ function CoursesByCategory({ route }) {
     };
 
     handleSearch();
-  }, [category, user]);
+  }, [category]);
 
+  console.log("courses");
+  console.log(courses);
   return (
     <div>
       {user !== null ? (
@@ -68,6 +71,11 @@ function CoursesByCategory({ route }) {
                 ></img>
               </div>
             </div>
+          </div>
+          <div className="mainDiv">
+            {courses.map((course, index) => (
+              <CourseCart key={index} course={course} />
+            ))}
           </div>
         </div>
       ) : null}

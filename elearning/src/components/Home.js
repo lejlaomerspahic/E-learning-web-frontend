@@ -8,8 +8,6 @@ import Somethingforyou from "./Somethingforyou";
 
 function Home() {
   const { user, setUser } = useUser();
-  console.log("user");
-  console.log(user);
   const navigate = useNavigate();
   useEffect(() => {
     const cookies = document.cookie;
@@ -37,7 +35,7 @@ function Home() {
     } else if (!user) {
       navigate("/user/signin");
     }
-  }, [setUser]);
+  }, []);
 
   return (
     <div>
@@ -48,9 +46,7 @@ function Home() {
           <Course />
           <Somethingforyou />
         </div>
-      ) : (
-        navigate("/user/signin")
-      )}
+      ) : null}
     </div>
   );
 }

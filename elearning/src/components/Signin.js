@@ -72,7 +72,7 @@ function Signin() {
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);
           const now = new Date();
-          now.setUTCMinutes(now.getUTCMinutes() + 1);
+          now.setUTCDate(now.getUTCDate() + 5);
           const expires = now.toUTCString();
           document.cookie = `jwtToken=${jsonUserData}; expires=${expires}; path=/`;
         }
