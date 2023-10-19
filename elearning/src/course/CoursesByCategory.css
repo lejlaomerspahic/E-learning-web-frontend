@@ -1,0 +1,52 @@
+.mainDiv {
+  margin: 20px;
+}
+
+.divCourse {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  border: none;
+  margin: 0 auto;
+  padding-left: 170px;
+  padding-right: 170px;
+  border-radius: 30px;
+  margin-top: 20px;
+  background-color: rgba(1, 55, 106, 0.116);
+}
+
+.divImage {
+  width: 500px;
+}
+
+.text {
+  font-size: 24px;
+  color: grey;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+input {
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  width: 400px;
+}
+
+button {
+  margin-left: -40px;
+  background-color: #1201a8;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

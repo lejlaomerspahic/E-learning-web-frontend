@@ -8,7 +8,7 @@ import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import { variable } from "../variable";
 import { user, useUser } from "../hook/useUser";
 function Signin() {
@@ -66,17 +66,16 @@ function Signin() {
       if (response.ok) {
         const responseData = await response.json();
         setUser(responseData);
-
         navigate("/home");
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);
+          const now = new Date();
+          now.setUTCMinutes(now.getUTCMinutes() + 1);
 
-          document.cookie = `jwtToken=${jsonUserData}; expires=${new Date(
-            new Date().getTime() + 5 * 24 * 60 * 60 * 1000
-          )}`;
+          const expires = now.toUTCString();
+
+          document.cookie = `jwtToken=${jsonUserData}; expires=${expires}; path=/`;
         }
-      } else {
-        console.error("Error during login:", response.status);
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -202,6 +201,7 @@ function Signin() {
                   type="button"
                   className="btn btn-primary btn-lg"
                   style={{
+                    marginLeft: "8px",
                     paddingLeft: "2.5rem",
                     paddingRight: "2.5rem",
                     background: "#035dbd",
