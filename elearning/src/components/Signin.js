@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Signin.css";
@@ -21,6 +21,7 @@ function Signin() {
   const [passwordError, setPasswordError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { user, setUser } = useUser();
+
   const handleLogin = async () => {
     let hasError = false;
 
@@ -65,8 +66,7 @@ function Signin() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("responseData");
-        console.log(responseData);
+
         setUser(responseData);
         navigate("/home");
         if (responseData.token) {
@@ -214,7 +214,7 @@ function Signin() {
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   Don't have an account?{" "}
                   <Link
-                    to="/registracija"
+                    to="/user/signup"
                     style={{ textDecoration: "none" }}
                     className="link-danger"
                   >

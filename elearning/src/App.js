@@ -1,29 +1,69 @@
 import "./App.css";
 import Welcome from "./components/Welcome";
 import Signin from "./components/Signin";
-import { BrowserRouter, Routes, Router, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Router,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
-import UserProvider from "./hook/useUser";
+import { UserProvider, useUser } from "./hook/useUser";
 import CoursesByCategory from "./course/CoursesByCategory";
 import { useEffect, useState } from "react";
+
 function App() {
+  const [isTokenValid, setIsTokenValid] = useState(false);
+  const { setUser } = useUser();
+  useEffect(() => {
+    const cookies = document.cookie;
+
+    function getCookieValue(cookieName) {
+      const cookieArray = cookies.split("; ");
+      for (const cookie of cookieArray) {
+        const [name, value] = cookie.split("=");
+        if (name === cookieName) {
+          return value;
+        }
+      }
+      return null;
+    }
+
+    const jwtToken = getCookieValue("jwtToken");
+
+    if (jwtToken) {
+      setIsTokenValid(true);
+      const userData = JSON.parse(jwtToken);
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...userData,
+      }));
+    }
+  }, []);
+
   return (
     <div className="App">
-      <UserProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Welcome />}></Route>
-            <Route path="/user/signin" element={<Signin />}></Route>
-            <Route path="/user/signup" element={<Signup />}></Route>
-            <Route path="/home" element={<Home />}></Route>
-            <Route
-              path="/courseByCategory/:category"
-              element={<CoursesByCategory />}
-            ></Route>
-          </Routes>
-        </BrowserRouter>
-      </UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={isTokenValid ? <Welcome /> : <Signin />} />
+          <Route
+            path="/user/signin"
+            element={isTokenValid ? <Home /> : <Signin />}
+          />
+          <Route
+            path="/user/signup"
+            element={isTokenValid ? <Home /> : <Signup />}
+          />
+          <Route path="/home" element={isTokenValid ? <Home /> : <Signin />} />
+          <Route
+            path="/courseByCategory/:category"
+            element={isTokenValid ? <CoursesByCategory /> : <Signin />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

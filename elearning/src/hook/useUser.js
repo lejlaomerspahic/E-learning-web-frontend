@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const UserContext = createContext();
 
@@ -12,10 +12,12 @@ const UserProvider = ({ children }) => {
   );
 };
 
-export const useUser = () => {
+const useUser = () => {
   const context = useContext(UserContext);
-
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
   return context;
 };
 
-export default UserProvider;
+export { UserProvider, useUser };

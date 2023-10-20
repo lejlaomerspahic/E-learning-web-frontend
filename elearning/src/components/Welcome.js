@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Welcome.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,6 +11,12 @@ function Pocetna() {
   const handleRegistrujSeClick = () => {
     navigate("/user/signup");
   };
+  useEffect(() => {
+    const cookies = document.cookie;
+    if (cookies) {
+      navigate("/home");
+    }
+  });
 
   let backgroundImage =
     "https://cdni.iconscout.com/illustration/premium/thumb/female-teacher-teaching-her-student-2769749-2302767.png";

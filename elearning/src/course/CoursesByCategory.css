@@ -50,3 +50,11 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.divCourseCart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 100px;
+  margin-right: 100px;
+}
