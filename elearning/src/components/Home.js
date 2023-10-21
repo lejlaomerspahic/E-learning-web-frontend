@@ -8,7 +8,6 @@ import Somethingforyou from "./Somethingforyou";
 
 function Home() {
   const { user } = useUser();
-
   return (
     <div>
       {user !== null ? (

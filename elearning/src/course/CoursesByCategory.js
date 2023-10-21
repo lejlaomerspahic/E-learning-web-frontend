@@ -11,8 +11,7 @@ function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
   const { category } = useParams();
   const { user } = useUser();
-  console.log("user");
-  console.log(user);
+
   useEffect(() => {
     const handleSearch = async () => {
       try {
@@ -33,7 +32,7 @@ function CoursesByCategory({ route }) {
     };
 
     handleSearch();
-  }, [user, category]);
+  }, [user]);
 
   return (
     <div>

@@ -82,6 +82,12 @@ function Signin() {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user]);
+
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom">

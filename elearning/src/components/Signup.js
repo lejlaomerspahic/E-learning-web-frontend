@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Signin.css";
@@ -9,6 +9,8 @@ import { variable } from "../variable";
 import { useUser } from "../hook/useUser";
 function Signup() {
   const navigate = useNavigate();
+  const { user } = useUser();
+
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -24,7 +26,12 @@ function Signup() {
   const [locationError, setLocationError] = useState("");
   const [agreeTermsError, setAgreeTermsError] = useState("");
 
-  const { setUser } = useUser();
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user]);
+
   const handleRegistration = async () => {
     let hasError = false;
 

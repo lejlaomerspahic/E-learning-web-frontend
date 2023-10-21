@@ -13,10 +13,12 @@ import Home from "./components/Home";
 import { UserProvider, useUser } from "./hook/useUser";
 import CoursesByCategory from "./course/CoursesByCategory";
 import { useEffect, useState } from "react";
+import ProtectedRoute from "./hook/ProtectedRoute";
 
 function App() {
   const [isTokenValid, setIsTokenValid] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+
   useEffect(() => {
     const cookies = document.cookie;
 
@@ -48,19 +50,31 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={isTokenValid ? <Welcome /> : <Signin />} />
           <Route
-            path="/user/signin"
-            element={isTokenValid ? <Home /> : <Signin />}
+            path="/"
+            element={
+              <ProtectedRoute user={user}>
+                <Welcome />
+              </ProtectedRoute>
+            }
           />
+          <Route path="/user/signin" element={<Signin />} />
+          <Route path="/user/signup" element={<Signup />} />
           <Route
-            path="/user/signup"
-            element={isTokenValid ? <Home /> : <Signup />}
+            path="/home"
+            element={
+              <ProtectedRoute user={user}>
+                <Home />
+              </ProtectedRoute>
+            }
           />
-          <Route path="/home" element={isTokenValid ? <Home /> : <Signin />} />
           <Route
             path="/courseByCategory/:category"
-            element={isTokenValid ? <CoursesByCategory /> : <Signin />}
+            element={
+              <ProtectedRoute user={user}>
+                <CoursesByCategory />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </BrowserRouter>
