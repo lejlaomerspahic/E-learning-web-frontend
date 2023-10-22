@@ -74,7 +74,9 @@ function Signin() {
           const jsonUserData = JSON.stringify(responseData);
           const now = new Date();
 
-          let expirationDate = new Date(now.getTime() + 1 * 60 * 1000);
+          let expirationDate = new Date(
+            now.getTime() + 5 * 24 * 60 * 60 * 1000
+          );
           document.cookie = `jwtToken=${jsonUserData}; expires=${expirationDate.toUTCString()}; path=/`;
         }
       }

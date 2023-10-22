@@ -1,37 +1,28 @@
 .course-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  padding-top: 30px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 20px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.112);
+  border-radius: 10px;
+  padding: 20px;
 }
 .course-image {
-  max-width: 300px;
-  max-height: 250px;
-  border: none;
-  border-radius: 5px;
+  max-width: 100%;
+  height: auto;
 }
 
 .course-details {
-  flex: 1;
-  margin-top: 15px;
+  text-align: center;
 }
 
 .course-name {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 10px 0;
 }
 
 .course-info {
-  font-size: 16px;
-}
-
-.course-instructor {
-  font-size: 14px;
-  color: #555;
+  font-size: 1rem;
+  text-align: justify;
+  white-space: nowrap; /* Sprječava prelazak teksta u novi red */
+  overflow: hidden; /* Skriva prelazak teksta van granica kontejnera */
+  text-overflow: ellipsis;
 }

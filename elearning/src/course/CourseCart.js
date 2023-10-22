@@ -7,7 +7,7 @@ const CourseCart = ({ course }) => {
       <img className="course-image" src={course.imageUrl} alt={course.name} />
       <div className="course-details">
         <h2 className="course-name">{course.name}</h2>
-        <p className="course-info">{course.info}</p>
+        <p className="course-info">{course.description}</p>
       </div>
     </div>
   );

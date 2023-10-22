@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Course from "../course/Course";
 import Somethingforyou from "./Somethingforyou";
+import Footer from "./Footer";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
         <BackgroundPhoto />
         <Course />
         <Somethingforyou />
+        <Footer />
       </div>
     </div>
   );

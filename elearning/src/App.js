@@ -16,7 +16,32 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "./hook/ProtectedRoute";
 
 function App() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  var cookies = document.cookie;
+
+  useEffect(() => {
+    function getCookieValue(cookieName) {
+      const cookieArray = cookies.split("; ");
+      for (const cookie of cookieArray) {
+        const [name, value] = cookie.split("=");
+        if (name === cookieName) {
+          return value;
+        }
+      }
+      return null;
+    }
+
+    const jwtToken = getCookieValue("jwtToken");
+
+    if (jwtToken) {
+      const userData = JSON.parse(jwtToken);
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...userData,
+      }));
+    }
+  }, [cookies]);
 
   return (
     <div className="App">
