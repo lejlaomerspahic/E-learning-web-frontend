@@ -6,33 +6,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./CoursesByCategory.css";
 import CourseCart from "./CourseCart";
+import useQuery from "../global/useQuery";
 
 function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
   const { category } = useParams();
   const { user } = useUser();
 
+  const { data } = useQuery({
+    url: `${variable}/course/search/course/${category}`,
+  });
   useEffect(() => {
-    const handleSearch = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
-
-        const response = await axios.get(
-          `${variable}/course/search/course/${category}`,
-          config
-        );
-        setCourses(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    handleSearch();
-  }, [user]);
+    if (data) {
+      console.log(data);
+      setCourses(data);
+    }
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${user.token}`,
+    //   },
+    // };
+    // const response = await axios.get(
+    //   `${variable}/course/search/course/${category}`,
+    //   config
+    // );
+    // setCourses(response.data);
+  }, [data]);
 
   return (
     <div>

@@ -68,13 +68,14 @@ function Signin() {
         const responseData = await response.json();
 
         setUser(responseData);
+        console.log(responseData);
         navigate("/home");
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);
           const now = new Date();
-          now.setUTCDate(now.getUTCDate() + 5);
-          const expires = now.toUTCString();
-          document.cookie = `jwtToken=${jsonUserData}; expires=${expires}; path=/`;
+
+          let expirationDate = new Date(now.getTime() + 1 * 60 * 1000);
+          document.cookie = `jwtToken=${jsonUserData}; expires=${expirationDate.toUTCString()}; path=/`;
         }
       }
     } catch (error) {
