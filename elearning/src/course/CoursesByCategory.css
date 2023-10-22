@@ -9,8 +9,8 @@
   flex-direction: row;
   border: none;
   margin: 0 auto;
-  padding-left: 170px;
-  padding-right: 170px;
+  padding-left: 150px;
+  padding-right: 150px;
   border-radius: 30px;
   margin-top: 20px;
   background-color: rgba(1, 55, 106, 0.116);
@@ -23,6 +23,10 @@
 .text {
   font-size: 24px;
   color: grey;
+}
+
+input:focus {
+  outline: none;
 }
 
 .search-bar {

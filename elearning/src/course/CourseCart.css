@@ -6,6 +6,7 @@
   padding: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+  color: gray;
 }
 .course-image {
   max-width: 100%;
@@ -14,17 +15,17 @@
 
 .course-details {
   text-align: center;
+  padding-top: 10px;
 }
 
 .course-name {
   font-size: 1.2rem;
   margin: 10px 0;
+  font-weight: 600;
+  color: rgba(10, 0, 100, 0.877);
 }
 
 .course-info {
   font-size: 1rem;
   text-align: justify;
-  white-space: nowrap; /* Sprječava prelazak teksta u novi red */
-  overflow: hidden; /* Skriva prelazak teksta van granica kontejnera */
-  text-overflow: ellipsis;
 }

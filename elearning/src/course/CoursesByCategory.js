@@ -12,18 +12,30 @@ import Footer from "../components/Footer";
 function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
   const { category } = useParams();
-  const { user } = useUser();
 
-  const { data } = useQuery({
-    url: `${variable}/course/search/course/${category}`,
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState(courses);
+
+  const { data: coursesByCategory } = useQuery({
+    url: `${variable}/course/search/${category}`,
   });
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-      setCourses(data);
-    }
-  }, [data]);
 
+  const { data: coursesByName } = useQuery({
+    url: `${variable}/course/search/info/${searchText}`,
+  });
+
+  useEffect(() => {
+    if (coursesByCategory) {
+      setCourses(coursesByCategory);
+    }
+  }, [coursesByCategory]);
+
+  const handleSubmit = () => {
+    console.log(coursesByName);
+    if (coursesByName) {
+      setSearchResults(coursesByName);
+    }
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -38,10 +50,10 @@ function CoursesByCategory({ route }) {
               <input
                 type="text"
                 placeholder="Search courses by name..."
-                value=""
-                onChange={(e) => {}}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
-              <button>Search</button>
+              <button onClick={handleSubmit}>Search</button>
             </div>
           </div>
           <div className="divImage">
@@ -54,9 +66,13 @@ function CoursesByCategory({ route }) {
         </div>
       </div>
       <div className="divCourseCart">
-        {courses.map((course, index) => (
-          <CourseCart key={index} course={course} />
-        ))}
+        {searchText
+          ? searchResults.map((course, index) => (
+              <CourseCart key={index} course={course} />
+            ))
+          : courses.map((course, index) => (
+              <CourseCart key={index} course={course} />
+            ))}
       </div>
       <Footer />
     </div>
