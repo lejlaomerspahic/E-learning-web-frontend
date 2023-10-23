@@ -14,6 +14,7 @@ import { UserProvider, useUser } from "./hook/useUser";
 import CoursesByCategory from "./course/CoursesByCategory";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./hook/ProtectedRoute";
+import CourseInfo from "./course/CourseInfo";
 
 function App() {
   const { user, setUser } = useUser();
@@ -70,6 +71,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <CoursesByCategory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/course/:id"
+            element={
+              <ProtectedRoute user={user}>
+                <CourseInfo />
               </ProtectedRoute>
             }
           />

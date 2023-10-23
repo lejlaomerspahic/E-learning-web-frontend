@@ -68,7 +68,6 @@ function Signin() {
         const responseData = await response.json();
 
         setUser(responseData);
-        console.log(responseData);
         navigate("/home");
         if (responseData.token) {
           const jsonUserData = JSON.stringify(responseData);

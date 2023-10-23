@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
   const { category } = useParams();
-
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState(courses);
 
@@ -31,10 +31,13 @@ function CoursesByCategory({ route }) {
   }, [coursesByCategory]);
 
   const handleSubmit = () => {
-    console.log(coursesByName);
     if (coursesByName) {
       setSearchResults(coursesByName);
     }
+  };
+
+  const handleClick = (id) => {
+    navigate(`/course/${id}`);
   };
   return (
     <div>
@@ -68,10 +71,18 @@ function CoursesByCategory({ route }) {
       <div className="divCourseCart">
         {searchText
           ? searchResults.map((course, index) => (
-              <CourseCart key={index} course={course} />
+              <CourseCart
+                key={index}
+                course={course}
+                onClick={() => handleClick(course.id)}
+              />
             ))
           : courses.map((course, index) => (
-              <CourseCart key={index} course={course} />
+              <CourseCart
+                key={index}
+                course={course}
+                onClick={() => handleClick(course.id)}
+              />
             ))}
       </div>
       <Footer />
