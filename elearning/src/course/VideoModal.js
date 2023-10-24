@@ -13,7 +13,7 @@ const VideoModal = ({ isOpen, closeModal, course }) => {
       <iframe
         width="1200"
         height="600"
-        style={{ borderRadius: "20px" }}
+        style={{ borderRadius: "20px", border: "none" }}
         src={`https://www.youtube.com/embed/${course.videoId}`}
         title="YouTube video player"
         frameborder="0"

@@ -17,3 +17,40 @@
   justify-content: center;
   align-items: center;
 }
+.cont {
+  width: 600px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.356);
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: space-between;
+  justify-content: row;
+  margin-top: 10px;
+  color: grey;
+}
+
+.image {
+  border-radius: 80px;
+  height: 100px;
+  width: 250px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.descriptionContainerInstuctor {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: rgb(252, 249, 249);
+  background-color: rgba(10, 0, 100, 0.877);
+  padding: 20px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.contInstructor {
+  width: 600px;
+}
