@@ -1,6 +1,19 @@
-.divCaption {
+.divMain {
   background-color: rgba(203, 209, 238, 0.228);
-  height: 300px;
   margin: 50px;
   border-radius: 20px;
+  padding: 50px;
+  color: grey;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.imageDiv {
+  height: 200px;
+  width: 500px;
+  border: 2px solid rgb(5, 0, 95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
