@@ -39,6 +39,7 @@ function CoursesByCategory({ route }) {
   const handleClick = (id) => {
     navigate(`/course/${id}`);
   };
+
   return (
     <div>
       <Navbar></Navbar>

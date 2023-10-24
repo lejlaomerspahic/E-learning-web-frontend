@@ -29,8 +29,8 @@ const CourseInfo = () => {
             <h2> {course.name}</h2>
             <h4> {course.info}</h4>
 
-            {course.instructors.map((value, index) => (
-              <h5 key={index}>{value}</h5>
+            {course.instructor?.map((instructor, index) => (
+              <h5 key={index}>{instructor.name}</h5>
             ))}
 
             <div>
