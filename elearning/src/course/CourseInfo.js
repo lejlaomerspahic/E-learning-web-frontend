@@ -141,11 +141,7 @@ const CourseInfo = () => {
               </h3>
               <div>
                 {course?.instructor.map((instructor, index) => (
-                  <div
-                    key={index}
-                    className="descriptionContainerInstuctor"
-                    onClick={() => navigate(`/instructor/${instructor.id}`)}
-                  >
+                  <div key={index} className="descriptionContainerInstuctor">
                     <div className="image">
                       <img
                         alt="instructor image"
@@ -165,7 +161,15 @@ const CourseInfo = () => {
                           marginBottom: "0px",
                         }}
                       >
-                        <p style={{ fontWeight: "bold" }}>{instructor.name},</p>{" "}
+                        <p
+                          className="instructor-name"
+                          style={{ fontWeight: "bold", cursor: "pointer" }}
+                          onClick={() =>
+                            navigate(`/instructor/${instructor.id}`)
+                          }
+                        >
+                          {instructor.name},
+                        </p>
                         {instructor.occupation}
                       </p>
                       <p> {truncate(instructor.bio, 170)}</p>

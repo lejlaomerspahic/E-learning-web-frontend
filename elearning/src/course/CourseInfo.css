@@ -54,3 +54,7 @@
 .contInstructor {
   width: 600px;
 }
+
+.instructor-name:hover {
+  color: rgb(159, 212, 250);
+}
