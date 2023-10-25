@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useQuery from "../global/useQuery";
 import { variable } from "../variable";
 import Navbar from "../components/Navbar";
@@ -14,6 +14,7 @@ const CourseInfo = () => {
   const { id } = useParams();
   const [courseInfo, setCourseInfo] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const { data: course } = useQuery({
     url: `${variable}/course/${id}`,
@@ -140,7 +141,11 @@ const CourseInfo = () => {
               </h3>
               <div>
                 {course?.instructor.map((instructor, index) => (
-                  <div key={index} className="descriptionContainerInstuctor">
+                  <div
+                    key={index}
+                    className="descriptionContainerInstuctor"
+                    onClick={() => navigate(`/instructor/${instructor.id}`)}
+                  >
                     <div className="image">
                       <img
                         alt="instructor image"

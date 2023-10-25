@@ -15,6 +15,7 @@ import CoursesByCategory from "./course/CoursesByCategory";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./hook/ProtectedRoute";
 import CourseInfo from "./course/CourseInfo";
+import InstructorProfile from "./profile/InstructorProfile";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -78,6 +79,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <CourseInfo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructor/:id"
+            element={
+              <ProtectedRoute user={user}>
+                <InstructorProfile />
               </ProtectedRoute>
             }
           />
