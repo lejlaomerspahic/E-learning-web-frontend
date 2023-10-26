@@ -1,0 +1,12 @@
+.profile-image {
+  position: absolute;
+  text-align: start;
+  top: 200px;
+  left: 150px;
+  height: 250px;
+  width: 250px;
+}
+
+img {
+  border: 5px solid rgb(0, 5, 141);
+}

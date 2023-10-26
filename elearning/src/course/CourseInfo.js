@@ -165,7 +165,9 @@ const CourseInfo = () => {
                           className="instructor-name"
                           style={{ fontWeight: "bold", cursor: "pointer" }}
                           onClick={() =>
-                            navigate(`/instructor/${instructor.id}`)
+                            navigate(`/instructor/${instructor.id}`, {
+                              state: { instructor },
+                            })
                           }
                         >
                           {instructor.name},
