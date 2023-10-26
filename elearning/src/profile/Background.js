@@ -1,6 +1,5 @@
 import React from "react";
 import "./Background.css";
-
 function Background({ instructor }) {
   return (
     <div>
@@ -13,7 +12,18 @@ function Background({ instructor }) {
           position: "relative",
           height: "250px",
         }}
-      ></div>
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 109, 0.482)",
+          }}
+        ></div>
+      </div>
       <div class="profile-image">
         <img
           style={{
@@ -21,11 +31,11 @@ function Background({ instructor }) {
             width: "100%",
             borderRadius: "120px",
           }}
+          className="img-img"
           src={instructor.imageUrl}
           alt="Profile Image"
         />
       </div>
-      <h1>{instructor.name}</h1>
     </div>
   );
 }

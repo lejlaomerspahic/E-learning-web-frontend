@@ -11,7 +11,6 @@ const Navbar = () => {
   const { user } = useUser();
   const [imageUrl, setImageUrl] = useState();
   const toggleSidebar = () => {
-    console.log("Toggle sidebar function called");
     setIsSidebarOpen(!isSidebarOpen);
   };
 

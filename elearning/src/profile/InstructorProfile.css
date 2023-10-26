@@ -1,0 +1,7 @@
+.div-info {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 180px;
+  margin-right: 220px;
+  margin-top: 50px;
+}

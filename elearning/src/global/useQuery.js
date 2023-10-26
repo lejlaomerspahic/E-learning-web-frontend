@@ -12,8 +12,6 @@ const useQuery = ({ url }) => {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    console.log(config);
-    console.log(url);
     axios
       .get(url, config)
       .then((response) => {

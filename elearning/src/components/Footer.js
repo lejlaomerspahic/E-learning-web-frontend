@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhone,
   faEnvelope,
-  faMapMarker,
+  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 function Footer() {
@@ -19,7 +19,7 @@ function Footer() {
         <FontAwesomeIcon icon={faPhone} /> Phone: 1234567890
       </div>
       <div className="footer-item">
-        <FontAwesomeIcon icon={faMapMarker} /> Place: Location
+        <FontAwesomeIcon icon={faMapMarkerAlt} /> Place: Location
       </div>
       <div className="footer-copyright">
         &copy; 2000-2023 All Rights Reserved. Unauthorized reproduction of
