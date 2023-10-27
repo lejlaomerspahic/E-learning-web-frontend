@@ -140,7 +140,7 @@ const CourseInfo = () => {
                 Instuctors:
               </h3>
               <div>
-                {course?.instructor.map((instructor, index) => (
+                {course?.instructor.map((instructorC, index) => (
                   <div key={index} className="descriptionContainerInstuctor">
                     <div className="image">
                       <img
@@ -149,7 +149,7 @@ const CourseInfo = () => {
                           height: "100%",
                           width: "100%",
                         }}
-                        src={instructor.imageUrl}
+                        src={instructorC.imageUrl}
                       ></img>
                     </div>
                     <div style={{ textAlign: "justify" }}>
@@ -165,16 +165,16 @@ const CourseInfo = () => {
                           className="instructor-name"
                           style={{ fontWeight: "bold", cursor: "pointer" }}
                           onClick={() =>
-                            navigate(`/instructor/${instructor.id}`, {
-                              state: { instructor },
+                            navigate(`/instructor/${instructorC.id}`, {
+                              state: { instructorC },
                             })
                           }
                         >
-                          {instructor.name},
+                          {instructorC.name},
                         </p>
-                        {instructor.occupation}
+                        {instructorC.occupation}
                       </p>
-                      <p> {truncate(instructor.bio, 170)}</p>
+                      <p> {truncate(instructorC.bio, 170)}</p>
                     </div>
                   </div>
                 ))}

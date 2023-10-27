@@ -24,7 +24,7 @@ function Background({ instructor }) {
           }}
         ></div>
       </div>
-      <div class="profile-image">
+      <div className="profile-image">
         <img
           style={{
             height: "100%",

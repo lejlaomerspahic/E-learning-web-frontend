@@ -14,7 +14,7 @@ function CoursesByCategory({ route }) {
   const { category } = useParams();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState(courses);
+  const [searchResults, setSearchResults] = useState([]);
 
   const { data: coursesByCategory } = useQuery({
     url: `${variable}/course/search/${category}`,
