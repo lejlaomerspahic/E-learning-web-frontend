@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import VideoModal from "./VideoModal";
-
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 const CourseInfo = () => {
   const { id } = useParams();
   const [courseInfo, setCourseInfo] = useState();
@@ -52,6 +53,16 @@ const CourseInfo = () => {
   function truncate(string, n) {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   }
+  const [favorite, setFavorite] = useState(false);
+
+  const handleFavorite = () => {
+    if (favorite) {
+      setFavorite(false);
+    } else {
+      setFavorite(true);
+    }
+  };
+
   return (
     <div>
       <Navbar></Navbar>
@@ -62,10 +73,43 @@ const CourseInfo = () => {
               <h6>
                 Course &gt; {course.category} &gt; {course.name}
               </h6>
-
-              <h2 style={{ color: "rgba(10, 0, 100, 0.877) " }}>
-                {course.name}
-              </h2>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+              >
+                <h2 style={{ color: "rgba(10, 0, 100, 0.877) " }}>
+                  {course.name}{" "}
+                </h2>
+                <div
+                  onClick={() => handleFavorite()}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {favorite ? (
+                    <FontAwesomeIcon
+                      style={{
+                        fontSize: "24px",
+                        color: "red",
+                        marginLeft: "10px",
+                      }}
+                      icon={faHeart}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      style={{
+                        fontSize: "24px",
+                        color: "red",
+                        marginLeft: "10px",
+                      }}
+                      icon={faHeartOutline}
+                    />
+                  )}
+                </div>
+              </div>
               <h4> {course.info}</h4>
 
               {course.instructor?.map((instructor, index) => (
