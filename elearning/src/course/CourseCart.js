@@ -1,22 +1,45 @@
 import React, { useState } from "react";
 import "./CourseCart.css";
-
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useQuery from "../global/useQuery";
+import { variable } from "../variable";
+import { useUser } from "../hook/useUser";
+import axios from "axios";
+
 const CourseCart = ({ course, onClick }) => {
+  const [favorite, setFavorite] = useState(false);
+  const { user, setUser } = useUser();
+
   function truncate(string, n) {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   }
 
-  const [favorite, setFavorite] = useState(false);
-
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
     if (favorite) {
       setFavorite(false);
     } else {
       setFavorite(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .post(
+          `${variable}/favorite/create`,
+          { user: user.user, course: course },
+          config
+        )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
     }
   };
 
