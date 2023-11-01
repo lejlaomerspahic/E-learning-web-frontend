@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { UserProvider } from "./hook/useUser";
+import { FavoriteProvider } from "./hook/useFavorite";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <App />
+      <FavoriteProvider>
+        <App />
+      </FavoriteProvider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")

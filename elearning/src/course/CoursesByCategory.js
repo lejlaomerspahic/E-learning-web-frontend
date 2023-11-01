@@ -8,6 +8,7 @@ import "./CoursesByCategory.css";
 import CourseCart from "./CourseCart";
 import useQuery from "../global/useQuery";
 import Footer from "../components/Footer";
+import { useFavorite } from "../hook/useFavorite";
 
 function CoursesByCategory({ route }) {
   const [courses, setCourses] = useState([]);
@@ -24,11 +25,18 @@ function CoursesByCategory({ route }) {
     url: `${variable}/course/search/info/${searchText}`,
   });
 
+  const { favorite, setFavorite } = useFavorite([]);
+  const { data: favorites } = useQuery({
+    url: `${variable}/favorite/`,
+  });
   useEffect(() => {
     if (coursesByCategory) {
       setCourses(coursesByCategory);
     }
-  }, [coursesByCategory]);
+    if (favorites) {
+      setFavorite(favorites);
+    }
+  }, [coursesByCategory, favorites]);
 
   const handleSubmit = () => {
     if (coursesByName) {
@@ -75,6 +83,7 @@ function CoursesByCategory({ route }) {
               <CourseCart
                 key={index}
                 course={course}
+                favorites={favorites}
                 onClick={() => handleClick(course.id)}
               />
             ))
@@ -82,6 +91,7 @@ function CoursesByCategory({ route }) {
               <CourseCart
                 key={index}
                 course={course}
+                favorites={favorites}
                 onClick={() => handleClick(course.id)}
               />
             ))}
