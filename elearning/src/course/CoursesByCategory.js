@@ -43,9 +43,8 @@ function CoursesByCategory({ route }) {
       setSearchResults(coursesByName);
     }
   };
-
   const handleClick = (id) => {
-    navigate(`/course/${id}`);
+    navigate(`/course/${id}`, { state: { favorites } });
   };
 
   return (

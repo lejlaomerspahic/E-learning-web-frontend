@@ -3,7 +3,6 @@ import "./CourseCart.css";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useQuery from "../global/useQuery";
 import { variable } from "../variable";
 import { useUser } from "../hook/useUser";
 import axios from "axios";
@@ -26,7 +25,7 @@ const CourseCart = ({ course, onClick, favorites }) => {
       setFavoriteHeart(true);
       setFavorite(item);
     }
-  }, []);
+  }, [favorites]);
 
   const handleFavorite = async () => {
     if (favoriteHeart) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useQuery from "../global/useQuery";
 import { variable } from "../variable";
 import Navbar from "../components/Navbar";
@@ -11,10 +11,21 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import VideoModal from "./VideoModal";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
+import { useUser } from "../hook/useUser";
+import { useFavorite } from "../hook/useFavorite";
+import axios from "axios";
+
 const CourseInfo = () => {
   const { id } = useParams();
+
   const [courseInfo, setCourseInfo] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const location = useLocation();
+  const favorites = location.state.favorites;
+
+  const [favoriteHeart, setFavoriteHeart] = useState(false);
+  const { user, setUser } = useUser();
+  const { favorite, setFavorite } = useFavorite([]);
   const navigate = useNavigate();
 
   const { data: course } = useQuery({
@@ -29,8 +40,16 @@ const CourseInfo = () => {
   useEffect(() => {
     if (course) {
       setCourseInfo(course);
+      let item = favorites.find((item) => item.course.id === course.id);
+
+      if (item === undefined) {
+        setFavoriteHeart(false);
+      } else {
+        setFavoriteHeart(true);
+        setFavorite(item);
+      }
     }
-  }, [course]);
+  }, [favorites, course]);
 
   const splitDescriptionIntoSentences = (description) => {
     return description.split(". ");
@@ -53,16 +72,48 @@ const CourseInfo = () => {
   function truncate(string, n) {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   }
-  const [favorite, setFavorite] = useState(false);
 
-  const handleFavorite = () => {
-    if (favorite) {
-      setFavorite(false);
+  const handleFavorite = async () => {
+    if (favoriteHeart) {
+      setFavoriteHeart(false);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .delete(`${variable}/favorite/delete/${favorite.id}`, config)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
     } else {
-      setFavorite(true);
+      setFavoriteHeart(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .post(
+          `${variable}/favorite/create`,
+          { user: user.user, course: course },
+          config
+        )
+        .then((response) => {
+          setFavorite(response.data);
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
     }
   };
-
   return (
     <div>
       <Navbar></Navbar>
@@ -83,32 +134,34 @@ const CourseInfo = () => {
                 <h2 style={{ color: "rgba(10, 0, 100, 0.877) " }}>
                   {course.name}{" "}
                 </h2>
-                <div
-                  onClick={() => handleFavorite()}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {favorite ? (
-                    <FontAwesomeIcon
-                      style={{
-                        fontSize: "24px",
-                        color: "red",
-                        marginLeft: "10px",
-                      }}
-                      icon={faHeart}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      style={{
-                        fontSize: "24px",
-                        color: "red",
-                        marginLeft: "10px",
-                      }}
-                      icon={faHeartOutline}
-                    />
-                  )}
-                </div>
+                {
+                  <div
+                    onClick={() => handleFavorite()}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    {favoriteHeart ? (
+                      <FontAwesomeIcon
+                        style={{
+                          fontSize: "24px",
+                          color: "red",
+                          marginLeft: "10px",
+                        }}
+                        icon={faHeart}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        style={{
+                          fontSize: "24px",
+                          color: "red",
+                          marginLeft: "10px",
+                        }}
+                        icon={faHeartOutline}
+                      />
+                    )}
+                  </div>
+                }
               </div>
               <h4> {course.info}</h4>
 
