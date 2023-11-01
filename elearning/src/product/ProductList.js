@@ -19,7 +19,7 @@ function ProductList() {
   return (
     <div className="main">
       <p style={{ fontSize: "22px", fontWeight: "700", margin: "0px" }}>
-        Product
+        Products
       </p>
       <div className="horizontal-scroll">
         {productList.map((product, index) => (
