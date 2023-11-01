@@ -6,17 +6,24 @@ import { useNavigate } from "react-router-dom";
 import Course from "../course/Course";
 import Somethingforyou from "./Somethingforyou";
 import Footer from "./Footer";
+import ProductList from "../product/ProductList";
 
 function Home() {
   return (
     <div>
-      <div>
-        <Navbar />
+      <Navbar />
+      <div
+        style={{
+          paddingLeft: "40px",
+          paddingRight: "40px",
+        }}
+      >
         <BackgroundPhoto />
         <Course />
-        <Somethingforyou />
-        <Footer />
+        {/* <Somethingforyou /> */}
+        <ProductList />
       </div>
+      <Footer />
     </div>
   );
 }
