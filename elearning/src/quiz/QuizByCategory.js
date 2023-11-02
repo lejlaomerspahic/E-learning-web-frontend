@@ -15,11 +15,21 @@ export default function QuizByCategory() {
   });
   const [quizzes, setQuizzes] = useState([]);
 
+  const { data: quizzesInfo } = useQuery({
+    url: `${variable}/quiz/search/info/${searchText}`,
+  });
+
   useEffect(() => {
     if (quizzesByCategory) {
       setQuizzes(quizzesByCategory);
     }
   }, [quizzesByCategory]);
+
+  const handleSubmit = () => {
+    if (quizzesInfo) {
+      setSearchResults(quizzesInfo);
+    }
+  };
 
   return (
     <div>
@@ -32,11 +42,14 @@ export default function QuizByCategory() {
             <div className="search-bar">
               <input
                 type="text"
-                placeholder="Search courses by name..."
+                placeholder="Search quizzes by name..."
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
-              <button style={{ backgroundColor: "rgba(10, 0, 100, 0.877)" }}>
+              <button
+                onClick={handleSubmit}
+                style={{ backgroundColor: "rgba(10, 0, 100, 0.877)" }}
+              >
                 Search
               </button>
             </div>
