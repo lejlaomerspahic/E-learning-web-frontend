@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TimeIsUp from "./TimeIsUp";
 
 function Timer({ duration }) {
-  const [remainingTime, setRemainingTime] = useState(duration + 5);
+  const [remainingTime, setRemainingTime] = useState(parseInt(duration) + 5);
 
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {

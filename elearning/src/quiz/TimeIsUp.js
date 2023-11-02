@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 function TimeIsUp() {
-  const [showModal, setShowModal] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowModal(false);
       window.history.back();
     }, 5000);
 
@@ -13,6 +10,7 @@ function TimeIsUp() {
       clearTimeout(timer);
     };
   }, []);
+
   return (
     <div>
       {" "}
