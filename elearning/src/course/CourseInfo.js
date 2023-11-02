@@ -18,10 +18,7 @@ import axios from "axios";
 const CourseInfo = () => {
   const { id } = useParams();
 
-  const [courseInfo, setCourseInfo] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const location = useLocation();
-  const courses = location.state.courses;
 
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();

@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { variable } from "../variable";
 import useQuery from "../global/useQuery";
 import "./Product.css";
+
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -13,26 +16,67 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer";
 import { useUser } from "../hook/useUser";
 import { useFavorite } from "../hook/useFavorite";
+import axios from "axios";
 function Product() {
   const { id } = useParams();
   const [productInfo, setProductInfo] = useState({});
-  const { user } = useUser();
-  const [rating, setRating] = useState(false);
+
+  const [favoriteHeart, setFavoriteHeart] = useState(false);
+  const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
+  const [rating, setRating] = useState(false);
   const { data: product } = useQuery({
     url: `${variable}/product/${id}`,
   });
-  const { data: favorites } = useQuery({
-    url: `${variable}/favorite/`,
-  });
+
+  const handleFavorite = async () => {
+    if (favoriteHeart) {
+      setFavoriteHeart(false);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .delete(`${variable}/favorite/delete/${favorite.id}`, config)
+        .then((response) => {})
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
+    } else {
+      setFavoriteHeart(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .post(
+          `${variable}/favorite/create`,
+          { user: user.user, product: product },
+          config
+        )
+        .then((response) => {
+          setFavorite(response.data);
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
+    }
+  };
+  console.log(favorite);
   useEffect(() => {
     if (product) {
       setProductInfo(product);
+      const item = product.favorite.length > 0;
+      setFavoriteHeart(item);
     }
-    if (favorites) {
-      setFavorite(favorites);
-    }
-  }, [product, favorites]);
+  }, [product]);
+
   if (productInfo.productLocation === user.user.location) {
     var delivery = "Free Delivery";
   } else {
@@ -52,7 +96,34 @@ function Product() {
           <div style={{ height: "350px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h2>{productInfo.title}</h2>
-              <h2 style={{ color: "green" }}>{productInfo.price}</h2>
+              {
+                <div
+                  onClick={() => handleFavorite()}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {favoriteHeart ? (
+                    <FontAwesomeIcon
+                      style={{
+                        fontSize: "24px",
+                        color: "red",
+                        marginLeft: "10px",
+                      }}
+                      icon={faHeart}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      style={{
+                        fontSize: "24px",
+                        color: "red",
+                        marginLeft: "10px",
+                      }}
+                      icon={faHeartOutline}
+                    />
+                  )}
+                </div>
+              }
             </div>
             <div
               style={{
