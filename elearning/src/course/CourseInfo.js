@@ -21,11 +21,12 @@ const CourseInfo = () => {
   const [courseInfo, setCourseInfo] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const location = useLocation();
-  const favorites = location.state.favorites;
+  const courses = location.state.courses;
 
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
+
   const navigate = useNavigate();
 
   const { data: course } = useQuery({
@@ -39,17 +40,10 @@ const CourseInfo = () => {
 
   useEffect(() => {
     if (course) {
-      setCourseInfo(course);
-      let item = favorites.find((item) => item.course.id === course.id);
-
-      if (item === undefined) {
-        setFavoriteHeart(false);
-      } else {
-        setFavoriteHeart(true);
-        setFavorite(item);
-      }
+      const item = course.favorite.length > 0;
+      setFavoriteHeart(item);
     }
-  }, [favorites, course]);
+  }, [course]);
 
   const splitDescriptionIntoSentences = (description) => {
     return description.split(". ");
@@ -83,9 +77,7 @@ const CourseInfo = () => {
       };
       axios
         .delete(`${variable}/favorite/delete/${favorite.id}`, config)
-        .then((response) => {
-          console.log(response.data);
-        })
+        .then((response) => {})
         .catch((error) => {
           if (error.response === 401) {
             setUser(null);

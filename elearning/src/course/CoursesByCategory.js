@@ -44,7 +44,7 @@ function CoursesByCategory({ route }) {
     }
   };
   const handleClick = (id) => {
-    navigate(`/course/${id}`, { state: { favorites } });
+    navigate(`/course/${id}`, { state: { courses } });
   };
 
   return (
@@ -82,7 +82,7 @@ function CoursesByCategory({ route }) {
               <CourseCart
                 key={index}
                 course={course}
-                favorites={favorites}
+                courses={courses}
                 onClick={() => handleClick(course.id)}
               />
             ))
@@ -90,7 +90,7 @@ function CoursesByCategory({ route }) {
               <CourseCart
                 key={index}
                 course={course}
-                favorites={favorites}
+                courses={courses}
                 onClick={() => handleClick(course.id)}
               />
             ))}

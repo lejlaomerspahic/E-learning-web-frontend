@@ -8,7 +8,7 @@ import { useUser } from "../hook/useUser";
 import axios from "axios";
 import { useFavorite } from "../hook/useFavorite";
 
-const CourseCart = ({ course, onClick, favorites }) => {
+const CourseCart = ({ course, onClick, courses }) => {
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
@@ -18,14 +18,11 @@ const CourseCart = ({ course, onClick, favorites }) => {
   }
 
   useEffect(() => {
-    let item = favorites.find((item) => item.course.id === course.id);
-    if (item === undefined) {
-      setFavoriteHeart(false);
-    } else {
-      setFavoriteHeart(true);
-      setFavorite(item);
+    if (course) {
+      const item = course.favorite.length > 0;
+      setFavoriteHeart(item);
     }
-  }, [favorites]);
+  }, [course]);
 
   const handleFavorite = async () => {
     if (favoriteHeart) {
@@ -37,9 +34,7 @@ const CourseCart = ({ course, onClick, favorites }) => {
       };
       axios
         .delete(`${variable}/favorite/delete/${favorite.id}`, config)
-        .then((response) => {
-          console.log(response.data);
-        })
+        .then((response) => {})
         .catch((error) => {
           if (error.response === 401) {
             setUser(null);
