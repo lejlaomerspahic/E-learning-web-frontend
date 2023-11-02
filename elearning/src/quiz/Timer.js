@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import TimeIsUp from "./TimeIsUp";
 
-function Timer({ duration, onTimeout }) {
-  const [remainingTime, setRemainingTime] = useState(duration);
+function Timer({ duration }) {
+  const [remainingTime, setRemainingTime] = useState(duration + 5);
 
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const timer = setInterval(() => {
       if (remainingTime <= 0) {
         clearInterval(timer);
-        onTimeout();
+        setShowModal(true);
       } else {
         setRemainingTime(remainingTime - 1);
       }
@@ -16,7 +18,7 @@ function Timer({ duration, onTimeout }) {
     return () => {
       clearInterval(timer);
     };
-  }, [remainingTime, onTimeout]);
+  }, [remainingTime]);
 
   return (
     <div>
@@ -25,6 +27,7 @@ function Timer({ duration, onTimeout }) {
         {" "}
         {remainingTime} seconds{" "}
       </span>
+      {showModal && <TimeIsUp></TimeIsUp>}
     </div>
   );
 }

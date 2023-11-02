@@ -28,6 +28,7 @@ function QuizCart({ quiz }) {
           borderRadius: "20px",
           fontWeight: "500",
           cursor: "pointer",
+          marginTop: "10px",
         }}
         onClick={() => handleClick(quiz.id)}
       >
