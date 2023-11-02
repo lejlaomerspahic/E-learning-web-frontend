@@ -1,11 +1,15 @@
 import React from "react";
 import "./QuizCart.css";
+import { useNavigate } from "react-router-dom";
 
-function QuizCart({ quiz, onClick }) {
+function QuizCart({ quiz }) {
+  const navigate = useNavigate();
   function truncate(string, n) {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   }
-
+  const handleClick = (id) => {
+    navigate(`/quiz/${id}`, { state: { quiz } });
+  };
   return (
     <div className="quiz-container">
       <img className="quiz-image" src={quiz.imageUrl} alt={quiz.name} />
@@ -25,7 +29,7 @@ function QuizCart({ quiz, onClick }) {
           fontWeight: "500",
           cursor: "pointer",
         }}
-        onClick={() => onClick(quiz.id)}
+        onClick={() => handleClick(quiz.id)}
       >
         START QUIZ
       </div>

@@ -21,9 +21,6 @@ export default function QuizByCategory() {
     }
   }, [quizzesByCategory]);
 
-  const handleClick = (id) => {
-    navigate(`/quiz/${id}`, { state: { quizzes } });
-  };
   return (
     <div>
       <Navbar></Navbar>
@@ -62,20 +59,10 @@ export default function QuizByCategory() {
       <div className="divCourseCart">
         {searchText
           ? searchResults.map((quiz, index) => (
-              <QuizCart
-                key={index}
-                quiz={quiz}
-                quizzes={quizzes}
-                onClick={() => handleClick(quiz.id)}
-              />
+              <QuizCart key={index} quiz={quiz} quizzes={quizzes} />
             ))
           : quizzes.map((quiz, index) => (
-              <QuizCart
-                key={index}
-                quiz={quiz}
-                quizzes={quizzes}
-                onClick={() => handleClick(quiz.id)}
-              />
+              <QuizCart key={index} quiz={quiz} quizzes={quizzes} />
             ))}
       </div>
       <Footer />
