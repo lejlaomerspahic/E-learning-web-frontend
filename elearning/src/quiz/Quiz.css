@@ -1,0 +1,15 @@
+.quiz-container-list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.quiz-card {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid rgba(203, 209, 238, 0.228);
+  border-radius: 20px;
+  padding: 20px;
+  background-color: rgba(203, 209, 238, 0.228);
+}

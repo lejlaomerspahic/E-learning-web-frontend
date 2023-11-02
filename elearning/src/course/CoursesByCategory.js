@@ -64,7 +64,12 @@ function CoursesByCategory({ route }) {
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
               />
-              <button onClick={handleSubmit}>Search</button>
+              <button
+                style={{ backgroundColor: "rgba(10, 0, 100, 0.877)" }}
+                onClick={handleSubmit}
+              >
+                Search
+              </button>
             </div>
           </div>
           <div className="divImage">

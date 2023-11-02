@@ -17,6 +17,7 @@ import ProtectedRoute from "./hook/ProtectedRoute";
 import CourseInfo from "./course/CourseInfo";
 import InstructorProfile from "./profile/InstructorProfile";
 import Product from "./product/Product";
+import QuizByCategory from "./quiz/QuizByCategory";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -96,6 +97,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <Product />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quizByCategory/:category"
+            element={
+              <ProtectedRoute user={user}>
+                <QuizByCategory />
               </ProtectedRoute>
             }
           />

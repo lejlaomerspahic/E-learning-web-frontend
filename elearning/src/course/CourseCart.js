@@ -8,7 +8,7 @@ import { useUser } from "../hook/useUser";
 import axios from "axios";
 import { useFavorite } from "../hook/useFavorite";
 
-const CourseCart = ({ course, onClick, courses }) => {
+const CourseCart = ({ course, onClick }) => {
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);

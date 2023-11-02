@@ -68,7 +68,6 @@ function Product() {
         });
     }
   };
-  console.log(favorite);
   useEffect(() => {
     if (product) {
       setProductInfo(product);

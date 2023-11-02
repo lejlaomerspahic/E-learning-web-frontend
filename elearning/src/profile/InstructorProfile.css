@@ -23,7 +23,7 @@
   padding: 20px;
   width: 330px;
   height: 200px;
-  border-radius: 10px;
+  border-radius: 20px;
   justify-content: center;
   text-align: center;
   font-size: 22px;
@@ -33,5 +33,5 @@
 .imageUri {
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
 }

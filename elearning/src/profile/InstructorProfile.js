@@ -198,7 +198,7 @@ function InstructorProfile() {
                   <div
                     style={{
                       padding: "0px",
-                      borderRadius: "30px",
+                      borderRadius: "20px",
                       marginBottom: "10px",
                     }}
                   >

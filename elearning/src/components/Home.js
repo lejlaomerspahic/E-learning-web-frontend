@@ -7,6 +7,7 @@ import Course from "../course/Course";
 import Somethingforyou from "./Somethingforyou";
 import Footer from "./Footer";
 import ProductList from "../product/ProductList";
+import Quiz from "../quiz/Quiz";
 
 function Home() {
   return (
@@ -22,6 +23,7 @@ function Home() {
         <Course />
         {/* <Somethingforyou /> */}
         <ProductList />
+        <Quiz />
       </div>
       <Footer />
     </div>
