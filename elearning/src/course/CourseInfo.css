@@ -26,7 +26,6 @@
 .descriptionContainer {
   display: flex;
   justify-content: space-between;
-  justify-content: row;
   margin-top: 10px;
   color: grey;
 }

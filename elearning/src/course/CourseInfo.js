@@ -14,12 +14,12 @@ import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
 import { useUser } from "../hook/useUser";
 import { useFavorite } from "../hook/useFavorite";
 import axios from "axios";
-
+import { faCartShopping, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 const CourseInfo = () => {
   const { id } = useParams();
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const [rating, setRating] = useState(false);
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
@@ -103,6 +103,32 @@ const CourseInfo = () => {
         });
     }
   };
+
+  console.log(user);
+  const submitRating = async (rating) => {
+    if (rating > 0) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .post(
+          `${variable}/rating/create`,
+          { user: user.user.id, course: course.id, rating: rating },
+          config
+        )
+        .then((response) => {
+          setFavorite(response.data);
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
+    }
+  };
+
   return (
     <div>
       <Navbar></Navbar>
@@ -151,6 +177,30 @@ const CourseInfo = () => {
                     )}
                   </div>
                 }
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  fontSize: "20px",
+                  marginBottom: "5px",
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    onClick={() => {
+                      submitRating(i);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={i <= rating ? faStar : faStarRegular}
+                      size={24}
+                      color={i <= rating ? "gold" : "gray"}
+                    />
+                  </div>
+                ))}
               </div>
               <h4> {course.info}</h4>
 
@@ -241,9 +291,8 @@ const CourseInfo = () => {
                     <div style={{ textAlign: "justify" }}>
                       <p
                         style={{
-                          justifyContent: "space-between",
+                          justifyContent: "flex-start",
                           display: "flex",
-                          width: "190px",
                           marginBottom: "0px",
                         }}
                       >
@@ -260,7 +309,10 @@ const CourseInfo = () => {
                         </p>
                         {instructorC.occupation}
                       </p>
-                      <p> {truncate(instructorC.bio, 170)}</p>
+                      <p style={{ width: "370px" }}>
+                        {" "}
+                        {truncate(instructorC.bio, 170)}
+                      </p>
                     </div>
                   </div>
                 ))}
