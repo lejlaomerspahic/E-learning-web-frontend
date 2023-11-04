@@ -19,7 +19,10 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 const CourseInfo = () => {
   const { id } = useParams();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [rating, setRating] = useState(false);
+
+  const [rating, setRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
+  const [numRatings, setNumRatings] = useState(0);
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
@@ -39,6 +42,7 @@ const CourseInfo = () => {
     if (course) {
       const item = course.favorite.length > 0;
       setFavoriteHeart(item);
+      checkRating();
     }
   }, [course]);
 
@@ -104,7 +108,6 @@ const CourseInfo = () => {
     }
   };
 
-  console.log(user);
   const submitRating = async (rating) => {
     if (rating > 0) {
       const config = {
@@ -112,6 +115,7 @@ const CourseInfo = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      checkRating();
       axios
         .post(
           `${variable}/rating/create`,
@@ -119,7 +123,7 @@ const CourseInfo = () => {
           config
         )
         .then((response) => {
-          setFavorite(response.data);
+          console.log(response.data);
         })
         .catch((error) => {
           if (error.response === 401) {
@@ -129,6 +133,32 @@ const CourseInfo = () => {
     }
   };
 
+  const checkRating = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await axios.get(
+        `${variable}/rating/courseRatings?param1=${course.id}&param2=${user.user.id}`,
+        config
+      );
+
+      console.log(response.data);
+      if (response.data.userRating !== undefined) {
+        setRating(response.data.userRating.rating);
+      }
+
+      if (response.data.averageRating !== undefined) {
+        setAverageRating(response.data.averageRating);
+      }
+
+      if (response.data.numRatings !== undefined) {
+        setNumRatings(response.data.numRatings);
+      }
+    } catch (error) {}
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -201,6 +231,7 @@ const CourseInfo = () => {
                     />
                   </div>
                 ))}
+                <p style={{ marginLeft: "5px" }}> ({averageRating})</p>
               </div>
               <h4> {course.info}</h4>
 
