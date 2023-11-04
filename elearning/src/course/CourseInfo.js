@@ -22,7 +22,6 @@ const CourseInfo = () => {
 
   const [rating, setRating] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
-  const [numRatings, setNumRatings] = useState(0);
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
@@ -115,7 +114,6 @@ const CourseInfo = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      checkRating();
       axios
         .post(
           `${variable}/rating/create`,
@@ -124,6 +122,8 @@ const CourseInfo = () => {
         )
         .then((response) => {
           console.log(response.data);
+
+          checkRating();
         })
         .catch((error) => {
           if (error.response === 401) {
@@ -152,10 +152,6 @@ const CourseInfo = () => {
 
       if (response.data.averageRating !== undefined) {
         setAverageRating(response.data.averageRating);
-      }
-
-      if (response.data.numRatings !== undefined) {
-        setNumRatings(response.data.numRatings);
       }
     } catch (error) {}
   };

@@ -24,7 +24,8 @@ function Product() {
   const [favoriteHeart, setFavoriteHeart] = useState(false);
   const { user, setUser } = useUser();
   const { favorite, setFavorite } = useFavorite([]);
-  const [rating, setRating] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
   const { data: product } = useQuery({
     url: `${variable}/product/${id}`,
   });
@@ -73,6 +74,7 @@ function Product() {
       setProductInfo(product);
       const item = product.favorite.length > 0;
       setFavoriteHeart(item);
+      checkRating();
     }
   }, [product]);
 
@@ -81,6 +83,54 @@ function Product() {
   } else {
     delivery = "$10";
   }
+
+  const submitRating = async (rating) => {
+    if (rating > 0) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios
+        .post(
+          `${variable}/rating/create`,
+          { user: user.user.id, product: product.id, rating: rating },
+          config
+        )
+        .then((response) => {
+          console.log(response.data);
+
+          checkRating();
+        })
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
+    }
+  };
+
+  const checkRating = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await axios.get(
+        `${variable}/rating/productRatings?param1=${product.id}&param2=${user.user.id}`,
+        config
+      );
+      console.log(response.data);
+      if (response.data.userRating !== undefined) {
+        setRating(response.data.userRating.rating);
+      }
+
+      if (response.data.averageRating !== undefined) {
+        setAverageRating(response.data.averageRating);
+      }
+    } catch (error) {}
+  };
   return (
     <div>
       <Navbar />
@@ -136,7 +186,7 @@ function Product() {
                 <div
                   key={i}
                   onClick={() => {
-                    setRating(!rating);
+                    submitRating(i);
                   }}
                 >
                   <FontAwesomeIcon
@@ -146,6 +196,7 @@ function Product() {
                   />
                 </div>
               ))}
+              <p style={{ marginLeft: "5px" }}> ({averageRating})</p>
             </div>
 
             <h5>{productInfo.description}</h5>
