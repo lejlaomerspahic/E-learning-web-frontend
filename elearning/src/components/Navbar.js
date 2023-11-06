@@ -5,11 +5,13 @@ import "./Navbar.css";
 import { SidebarData } from "../Sidebar";
 
 import { useUser } from "../hook/useUser";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { user } = useUser();
   const [imageUrl, setImageUrl] = useState();
+  const navigate = useNavigate();
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -93,22 +95,13 @@ const Navbar = () => {
             </ul>
           </div>
           <ul className="ulul">
-            <li
-              className="nav-item"
-              onClick={() => (window.location.pathname = "/home")}
-            >
+            <li className="nav-item" onClick={() => navigate("/home")}>
               Home
             </li>
-            <li
-              className="nav-item"
-              onClick={() => (window.location.pathname = "/about")}
-            >
+            <li className="nav-item" onClick={() => navigate("/about")}>
               About
             </li>
-            <li
-              className="nav-item"
-              onClick={() => (window.location.pathname = "/cart")}
-            >
+            <li className="nav-item" onClick={() => navigate("/cart")}>
               Cart
             </li>
           </ul>

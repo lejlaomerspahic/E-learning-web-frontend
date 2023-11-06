@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { variable } from "../variable";
 import useQuery from "../global/useQuery";
 import "./Product.css";
+import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons";
@@ -26,9 +27,17 @@ function Product() {
   const { favorite, setFavorite } = useFavorite([]);
   const [rating, setRating] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+  const [count, setCount] = useState(1);
   const { data: product } = useQuery({
     url: `${variable}/product/${id}`,
   });
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+  const decrement = () => {
+    setCount(count - 1);
+  };
 
   const handleFavorite = async () => {
     if (favoriteHeart) {
@@ -131,6 +140,22 @@ function Product() {
       }
     } catch (error) {}
   };
+
+  const saveToLocalStorage = (user, productInfo, count) => {
+    const existingData = JSON.parse(localStorage.getItem("cartData")) || {
+      user: null,
+      cartItems: [],
+    };
+
+    if (user) {
+      existingData.user = user;
+    }
+
+    existingData.cartItems.push({ product: productInfo, count });
+
+    localStorage.setItem("cartData", JSON.stringify(existingData));
+  };
+
   return (
     <div>
       <Navbar />
@@ -238,22 +263,55 @@ function Product() {
             <div
               style={{
                 display: "flex",
-                justifyContent: "flex-start",
-                fontSize: "20px",
-                fontWeight: "700",
+                justifyContent: "space-between",
                 marginTop: "5px",
               }}
             >
-              Price:
               <div
                 style={{
-                  color: "green",
-                  fontWeight: "800",
-                  fontSize: "22px",
-                  marginLeft: "10px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "20px",
                 }}
               >
-                {productInfo.price}
+                <FontAwesomeIcon
+                  onClick={increment}
+                  icon={faPlusCircle}
+                  style={{ cursor: "pointer" }}
+                />
+                <div
+                  style={{
+                    marginLeft: "5px",
+                    marginRight: "5px",
+                    color: "green",
+                  }}
+                >
+                  {count}
+                </div>
+                <FontAwesomeIcon icon={faMinusCircle} onClick={decrement} />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  fontSize: "20px",
+                  fontWeight: "700",
+                  marginTop: "5px",
+                }}
+              >
+                Price:
+                <div
+                  style={{
+                    color: "green",
+                    fontWeight: "800",
+                    fontSize: "22px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {productInfo.price}
+                </div>
               </div>
             </div>
           </div>
@@ -264,6 +322,7 @@ function Product() {
             }}
           >
             <div
+              onClick={() => saveToLocalStorage(user.user, productInfo, count)}
               style={{
                 backgroundColor: "rgba(10, 0, 100, 0.877)",
                 width: "250px",
