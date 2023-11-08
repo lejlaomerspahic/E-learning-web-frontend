@@ -20,6 +20,7 @@ import Product from "./product/Product";
 import QuizByCategory from "./quiz/QuizByCategory";
 import QuizQuestions from "./quiz/QuizQuestions";
 import Cart from "./cart/Cart";
+import About from "./components/About";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -123,6 +124,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <ProtectedRoute user={user}>
+                <About />
               </ProtectedRoute>
             }
           />

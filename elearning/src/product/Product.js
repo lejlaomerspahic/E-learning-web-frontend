@@ -151,10 +151,22 @@ function Product() {
       existingData.user = user;
     }
 
-    existingData.cartItems.push({ product: productInfo, count });
+    const existingCartItem = existingData.cartItems.find((item) =>
+      areProductsEqual(item.product, productInfo)
+    );
+
+    if (existingCartItem) {
+      existingCartItem.count += count;
+    } else {
+      existingData.cartItems.push({ product: productInfo, count });
+    }
 
     localStorage.setItem("cartData", JSON.stringify(existingData));
   };
+
+  function areProductsEqual(product1, product2) {
+    return product1.id === product2.id;
+  }
 
   return (
     <div>
@@ -334,6 +346,7 @@ function Product() {
                 color: "white",
                 fontSize: "20px",
                 justifyContent: "center",
+                cursor: "pointer",
               }}
             >
               <FontAwesomeIcon

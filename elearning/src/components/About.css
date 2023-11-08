@@ -1,0 +1,19 @@
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 20px;
+  color: grey;
+}
+
+.about-text-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.about-text {
+  margin-bottom: 15px;
+  padding: 25px;
+  border-radius: 20px;
+  background-color: rgba(203, 209, 238, 0.128);
+}
