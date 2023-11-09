@@ -63,7 +63,7 @@ const Navbar = () => {
                     justifyContent: "center",
                   }}
                   key={index}
-                  onClick={() => (window.location.pathname = item.link)}
+                  onClick={() => navigate(`${item.link}`)}
                 >
                   <div
                     style={{
