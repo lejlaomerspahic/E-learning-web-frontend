@@ -12,10 +12,12 @@ import "./UserProfile.css";
 import Navbar from "../components/Navbar";
 import { useUser } from "../hook/useUser";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { variable } from "../variable";
 
 const UserProfile = () => {
-  const { user } = useUser();
-  const [name, setName] = useState(user.user.username);
+  const { user, setUser } = useUser();
+  const [username, setUserName] = useState(user.user.username);
   const [email, setEmail] = useState(user.user.email);
   const [password, setPassword] = useState(user.user.password);
   const [location, setLocation] = useState(user.user.location);
@@ -25,12 +27,46 @@ const UserProfile = () => {
     setEditing(!editing);
   };
 
-  const handleSaveClick = () => {
-    setEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const response = await axios.patch(
+        `${variable}/user/update`,
+        {
+          username,
+          email,
+          password,
+          location,
+        },
+        config
+      );
+
+      setUser((prev) => ({
+        ...prev,
+        ...response.data,
+      }));
+      const existingCookie = document.cookie
+        .split(";")
+        .find((cookie) => cookie.trim().startsWith("jwtToken="));
+      const now = new Date();
+
+      let expirationDate = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
+      const jsonUserData = JSON.stringify(response.data);
+      document.cookie = `${"jwtToken"}=${jsonUserData};expires=${expirationDate.toUTCString()};path=/`;
+
+      console.log(document.cookie);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
   };
+  console.log(user);
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setUserName(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -61,16 +97,16 @@ const UserProfile = () => {
         <div className="UserInfo">
           <div className="UserInfoItem">
             <FaUser className="InfoIcon" />
-            <span className="InfoLabel">Name:</span>
+            <span className="InfoLabel">Username:</span>
             {editing ? (
               <input
                 style={{ borderRadius: "10px", marginLeft: "10px" }}
                 type="text"
-                value={name}
+                value={username}
                 onChange={handleNameChange}
               />
             ) : (
-              <span className="InfoValue">{name}</span>
+              <span className="InfoValue">{username}</span>
             )}
           </div>
           <div className="UserInfoItem">
