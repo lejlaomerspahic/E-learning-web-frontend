@@ -8,13 +8,13 @@ import {
   FaSave,
 } from "react-icons/fa";
 import "./UserProfile.css";
-
+import { faCloudUploadAlt, faImage } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../components/Navbar";
 import { useUser } from "../hook/useUser";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { variable } from "../variable";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const UserProfile = () => {
   const { user, setUser } = useUser();
   const [username, setUserName] = useState(user.user.username);
@@ -23,6 +23,7 @@ const UserProfile = () => {
   const [location, setLocation] = useState(user.user.location);
   const [editing, setEditing] = useState(false);
 
+  const [url, setUrl] = useState("");
   const handleEditClick = () => {
     setEditing(!editing);
   };
@@ -41,6 +42,7 @@ const UserProfile = () => {
           email,
           password,
           location,
+          url,
         },
         config
       );
@@ -81,17 +83,94 @@ const UserProfile = () => {
     setLocation(e.target.value);
   };
 
+  const fileInputRef = React.createRef();
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imageUrl = reader.result;
+        setUrl(imageUrl);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  console.log(url);
   return (
     <div>
       <Navbar></Navbar>
       <div className="ProfileContainer">
         <div className="ProfileHeader">
           <div className="ProfileImageContainer">
-            <img
-              className="ProfileImage"
-              alt="Profile"
-              src={user.user?.picture}
-            />
+            <div style={{ position: "relative" }}>
+              {url ? (
+                <img className="ProfileImage" alt="Profile" src={url} />
+              ) : (
+                <img
+                  className="ProfileImage"
+                  alt="Profile"
+                  src={user.user?.picture}
+                />
+              )}
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: "170px",
+                left: "795px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileInputChange}
+              />
+              <div
+                onClick={() => fileInputRef.current.click()}
+                style={{
+                  width: "35px",
+                  height: "35px",
+                  backgroundColor: "white",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ color: "rgba(10, 0, 100, 0.877)", fontSize: "18px" }}
+                  icon={faImage}
+                />
+              </div>
+
+              <div
+                onClick={handleSaveClick}
+                style={{
+                  marginTop: "5px",
+                  width: "35px",
+                  height: "35px",
+                  backgroundColor: "white",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ color: "rgba(10, 0, 100, 0.877)", fontSize: "18px" }}
+                  icon={faCloudUploadAlt}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div className="UserInfo">
