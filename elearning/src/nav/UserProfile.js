@@ -46,7 +46,7 @@ const UserProfile = () => {
         },
         config
       );
-
+      console.log(response.data);
       setUser((prev) => ({
         ...prev,
         ...response.data,
