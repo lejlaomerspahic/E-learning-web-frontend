@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaUser,
   FaEnvelope,
@@ -46,26 +46,19 @@ const UserProfile = () => {
         },
         config
       );
-      console.log(response.data);
-      setUser((prev) => ({
-        ...prev,
-        ...response.data,
-      }));
-      const existingCookie = document.cookie
-        .split(";")
-        .find((cookie) => cookie.trim().startsWith("jwtToken="));
+      setUser({ user: response.data, token: response.data.token });
       const now = new Date();
 
       let expirationDate = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
-      const jsonUserData = JSON.stringify(response.data);
+      const jsonUserData = JSON.stringify({
+        user: response.data.user.id,
+        token: response.data.token,
+      });
       document.cookie = `${"jwtToken"}=${jsonUserData};expires=${expirationDate.toUTCString()};path=/`;
-
-      console.log(document.cookie);
     } catch (error) {
       console.error("Error updating user profile:", error);
     }
   };
-  console.log(user);
 
   const handleNameChange = (e) => {
     setUserName(e.target.value);
@@ -99,7 +92,14 @@ const UserProfile = () => {
     }
   };
 
-  console.log(url);
+  console.log("user");
+  console.log(user);
+
+  useEffect(() => {
+    if (user.user.picture) {
+      setUrl(user.user.picture);
+    }
+  }, [user.user.picture]);
   return (
     <div>
       <Navbar></Navbar>
@@ -113,7 +113,7 @@ const UserProfile = () => {
                 <img
                   className="ProfileImage"
                   alt="Profile"
-                  src={user.user?.picture}
+                  src="https://cdn1.iconfinder.com/data/icons/avatar-vol-8/512/15-512.png"
                 />
               )}
             </div>

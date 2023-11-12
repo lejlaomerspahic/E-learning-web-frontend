@@ -68,9 +68,13 @@ function Signin() {
         const responseData = await response.json();
 
         setUser(responseData);
+
         navigate("/home");
         if (responseData.token) {
-          const jsonUserData = JSON.stringify(responseData);
+          const jsonUserData = JSON.stringify({
+            user: responseData.user.id,
+            token: responseData.token,
+          });
           const now = new Date();
 
           let expirationDate = new Date(

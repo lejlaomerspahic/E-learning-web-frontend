@@ -10,22 +10,27 @@ import ProductList from "../product/ProductList";
 import Quiz from "../quiz/Quiz";
 
 function Home() {
+  const { user } = useUser();
   return (
     <div>
-      <Navbar />
-      <div
-        style={{
-          paddingLeft: "40px",
-          paddingRight: "40px",
-        }}
-      >
-        <BackgroundPhoto />
-        <Course />
-        {/* <Somethingforyou /> */}
-        <ProductList />
-        <Quiz />
-      </div>
-      <Footer />
+      {user ? (
+        <div>
+          <Navbar />
+          <div
+            style={{
+              paddingLeft: "40px",
+              paddingRight: "40px",
+            }}
+          >
+            <BackgroundPhoto />
+            <Course />
+            {/* <Somethingforyou /> */}
+            <ProductList />
+            <Quiz />
+          </div>
+          <Footer />
+        </div>
+      ) : null}
     </div>
   );
 }

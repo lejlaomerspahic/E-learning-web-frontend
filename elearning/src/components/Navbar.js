@@ -108,7 +108,15 @@ const Navbar = () => {
           <ul className="ulul">
             <li className="nav-item user-section">
               <div className="user-icon">
-                <img style={{ width: "100%" }} src={imageUrl} alt="User Icon" />
+                <img
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                  }}
+                  src={imageUrl}
+                  alt="User Icon"
+                />
               </div>
               <div className="user-info">Hello, {user?.user.username}</div>
             </li>

@@ -22,6 +22,9 @@ import QuizQuestions from "./quiz/QuizQuestions";
 import Cart from "./cart/Cart";
 import About from "./components/About";
 import UserProfile from "./nav/UserProfile";
+import useQuery from "./global/useQuery";
+import { variable } from "./variable";
+import axios from "axios";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -40,16 +43,28 @@ function App() {
 
     const jwtToken = getCookieValue("jwtToken");
 
-    if (jwtToken) {
-      const userData = JSON.parse(jwtToken);
+    let token = JSON.parse(jwtToken);
 
-      setUser((prevUser) => ({
-        ...prevUser,
-        ...userData,
-      }));
+    if (jwtToken) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      };
+      axios
+        .get(`${variable}/user/${token.user}`, config)
+        .then((response) => {
+          console.log(response.data);
+          setUser({ user: response.data, token: token.token });
+        })
+
+        .catch((error) => {
+          if (error.response === 401) {
+            setUser(null);
+          }
+        });
     }
   }, [cookies]);
-
   return (
     <div className="App">
       <BrowserRouter>
