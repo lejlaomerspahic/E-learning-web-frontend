@@ -100,11 +100,10 @@ const Favorites = () => {
                         </p>
                         <p
                           style={{
-                            marginLeft: "10px",
+                            marginLeft: "15px",
                             color: "green",
                             fontSize: "22px",
                             fontWeight: "600",
-                            margin: "0px",
                           }}
                         >
                           {item.price}
