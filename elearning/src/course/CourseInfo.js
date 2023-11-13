@@ -121,8 +121,6 @@ const CourseInfo = () => {
           config
         )
         .then((response) => {
-          console.log(response.data);
-
           checkRating();
         })
         .catch((error) => {
@@ -145,7 +143,6 @@ const CourseInfo = () => {
         config
       );
 
-      console.log(response.data);
       if (response.data.userRating !== undefined) {
         setRating(response.data.userRating.rating);
       }
@@ -159,7 +156,7 @@ const CourseInfo = () => {
     <div>
       <Navbar></Navbar>
       {course && (
-        <div>
+        <div style={{ marginBottom: "20px" }}>
           <div className="divMain">
             <div>
               <h6>

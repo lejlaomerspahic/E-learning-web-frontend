@@ -107,8 +107,6 @@ function Product() {
           config
         )
         .then((response) => {
-          console.log(response.data);
-
           checkRating();
         })
         .catch((error) => {
@@ -130,7 +128,6 @@ function Product() {
         `${variable}/rating/productRatings?param1=${product.id}&param2=${user.user.id}`,
         config
       );
-      console.log(response.data);
       if (response.data.userRating !== undefined) {
         setRating(response.data.userRating.rating);
       }

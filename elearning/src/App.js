@@ -25,6 +25,7 @@ import UserProfile from "./nav/UserProfile";
 import useQuery from "./global/useQuery";
 import { variable } from "./variable";
 import axios from "axios";
+import Favorites from "./nav/Favorites";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -54,7 +55,6 @@ function App() {
       axios
         .get(`${variable}/user/${token.user}`, config)
         .then((response) => {
-          console.log(response.data);
           setUser({ user: response.data, token: token.token });
         })
 
@@ -156,6 +156,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute user={user}>
+                <Favorites />
               </ProtectedRoute>
             }
           />

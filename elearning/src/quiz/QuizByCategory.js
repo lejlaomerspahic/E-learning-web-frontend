@@ -69,7 +69,7 @@ export default function QuizByCategory() {
           </div>
         </div>
       </div>
-      <div className="divCourseCart">
+      <div className="divCourseCart" style={{ marginBottom: "20px" }}>
         {searchText
           ? searchResults.map((quiz, index) => (
               <QuizCart key={index} quiz={quiz} quizzes={quizzes} />

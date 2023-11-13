@@ -43,6 +43,7 @@ function Quiz() {
         fontSize: "22px",
         fontWeight: "700",
         color: "grey",
+        marginBottom: "20px",
       }}
     >
       Quizzes

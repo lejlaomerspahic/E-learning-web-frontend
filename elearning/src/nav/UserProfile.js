@@ -92,9 +92,6 @@ const UserProfile = () => {
     }
   };
 
-  console.log("user");
-  console.log(user);
-
   useEffect(() => {
     if (user.user.picture) {
       setUrl(user.user.picture);

@@ -1,0 +1,66 @@
+.favorites-container {
+  margin: 0 auto;
+  padding: 20px;
+  color: grey;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.favorite-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.favorite-item {
+  background-color: rgba(203, 209, 238, 0.228);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+}
+
+.course-item {
+  width: 600px;
+  height: 320px;
+}
+
+.product-item {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+}
+
+.product-item .image-product {
+  height: auto;
+  width: 150px;
+}
+
+.course-item .image-course {
+  height: 170px;
+  width: auto;
+}
+
+img {
+  margin-bottom: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.instructor-item {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.instructor-item img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.info {
+  margin-top: 10px;
+  text-align: justify;
+}
