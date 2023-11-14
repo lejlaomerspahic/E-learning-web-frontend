@@ -26,6 +26,7 @@ import useQuery from "./global/useQuery";
 import { variable } from "./variable";
 import axios from "axios";
 import Favorites from "./nav/Favorites";
+import Quiz from "./nav/Quiz";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -164,6 +165,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <Favorites />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz"
+            element={
+              <ProtectedRoute user={user}>
+                <Quiz />
               </ProtectedRoute>
             }
           />

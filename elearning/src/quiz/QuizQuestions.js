@@ -5,39 +5,73 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Timer from "./Timer";
 import Result from "./Result";
+import axios from "axios";
+import { useUser } from "../hook/useUser";
+import { variable } from "../variable";
 
 function QuizQuestions() {
   const location = useLocation();
   const quiz = location.state.quiz;
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState([]);
   const [totalScore, setTotalScore] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const { user, setUser } = useUser();
   const handleCheckboxChange = (questionId, optionIndex) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: optionIndex,
-    }));
-  };
+    setAnswers((prevAnswers) => {
+      const existingAnswer = prevAnswers.find(
+        (answer) => answer.questionId === questionId
+      );
 
+      if (existingAnswer) {
+        return prevAnswers.map((answer) =>
+          answer.questionId === questionId
+            ? {
+                ...answer,
+                selectedOptions: optionIndex,
+              }
+            : answer
+        );
+      } else {
+        return [...prevAnswers, { questionId, optionIndex }];
+      }
+    });
+  };
   const handleSubmit = () => {
     setIsSubmitted(true);
 
     let score = 0;
-    for (let i = 0; i < answers.length; i++) {
-      const question = quiz.questions[i];
-      const isCorrect = answers[i].every(
-        (selected, index) =>
-          selected === (index === question.correctOptionIndex)
-      );
+
+    answers.forEach((answer) => {
+      const question = quiz.questions.find((q) => q.id === answer.questionId);
+      const isCorrect = answer.optionIndex === question.correctOptionIndex;
       if (isCorrect) {
         score += 2;
       }
-    }
+    });
     setTotalScore(score);
-  };
 
-  const handleTimeout = () => {};
+    let quizId = quiz.id;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    axios
+      .post(
+        `${variable}/user/user-quiz`,
+        { quizId: quizId, score: score },
+        config
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response === 401) {
+          setUser(null);
+        }
+      });
+  };
 
   return (
     <div>
@@ -67,7 +101,6 @@ function QuizQuestions() {
                   <label className="checkbox-label">
                     <input
                       type="checkbox"
-                      checked={answers[question.id] === optionIndex}
                       onChange={() =>
                         handleCheckboxChange(question.id, optionIndex)
                       }
