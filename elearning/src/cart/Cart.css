@@ -56,3 +56,9 @@ p {
   font-weight: 600;
   font-size: 22px;
 }
+
+.containter-cart {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}

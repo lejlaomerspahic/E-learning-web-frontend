@@ -15,8 +15,6 @@ import { variable } from "../variable";
 function Quiz() {
   const { user } = useUser();
 
-  console.log(user);
-
   const { data: result } = useQuery({
     url: `${variable}/user/result/${user.user.id}`,
   });

@@ -6,8 +6,10 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { FaTrash } from "react-icons/fa";
 
+import { loadStripe } from "@stripe/stripe-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUser } from "../hook/useUser";
+import { variable } from "../variable";
 function Cart() {
   const { user } = useUser();
   const [data, setData] = useState({});
@@ -24,7 +26,6 @@ function Cart() {
     const deliveryItems = cart.filter(
       (item) => item.product.productLocation !== userLocation
     );
-    console.log(cart);
     const deliveryCost = deliveryItems.length * 10;
     return deliveryCost;
   };
@@ -36,7 +37,6 @@ function Cart() {
 
   const calculateTotalItemPrice = (cart) => {
     let totalItemPrice = 0;
-    console.log(cart);
     cart.forEach((item) => {
       totalItemPrice += calculateTotalPrice(item.product.price, item.count);
     });
@@ -58,11 +58,53 @@ function Cart() {
     setData(updatedData);
     localStorage.setItem("cartData", JSON.stringify(updatedData));
   };
-  console.log(data.cartItems);
+
+  const stripePromise = loadStripe(
+    "pk_test_51Nc9U6CNsQ61mmLfnEsi87ZXBGI0XLTutgjddx4yjTb56spTA1cdOPpZtkL1oGYJStASxmj8wnGcLDPXnE0qxhTo00PH4cBsdI"
+  );
+
+  const handlePayment = async (amount, currency) => {
+    try {
+      const response = await fetch(
+        `${variable}/api/payment/create-checkout-session`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify({
+            amount: calculateTotalOrderPrice(
+              data.cartItems,
+              user.user.location
+            ),
+            currency: "usd",
+            products: data.cartItems?.map((item) => ({
+              product_id: item.product.id,
+              count: item.count,
+            })),
+          }),
+        }
+      );
+
+      const sessionId = await response.text();
+
+      const stripe = await stripePromise;
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: sessionId,
+      });
+
+      if (error) {
+        console.error("Greška prilikom redirekcije na Checkout:", error);
+      }
+    } catch (error) {
+      console.error("Greška prilikom slanja podataka:", error);
+    }
+  };
+
   return (
     <div className="cart-container">
       <Navbar></Navbar>
-
       <h3 style={{ margin: "20px", fontWeight: "600" }}>Shopping cart</h3>
       <div className="product-list">
         {data ? (
@@ -207,6 +249,7 @@ function Cart() {
                       : null}
                   </h4>
                 </div>
+                <button onClick={handlePayment}>Proceed to Checkout</button>
               </div>
             ) : (
               <div className="centered-container">
@@ -220,6 +263,7 @@ function Cart() {
           </div>
         )}
       </div>
+
       <Footer />
     </div>
   );
