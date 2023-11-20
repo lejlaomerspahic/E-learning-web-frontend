@@ -83,9 +83,7 @@ function Signin() {
           document.cookie = `jwtToken=${jsonUserData}; expires=${expirationDate.toUTCString()}; path=/`;
         }
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -140,7 +138,10 @@ function Signin() {
                 </button>
               </div>
 
-              <div className="divider d-flex align-items-center my-4">
+              <div
+                style={{ border: "none" }}
+                className="divider d-flex align-items-center my-4"
+              >
                 <p className="text-center fw-bold mx-4 mb-0">Or</p>
               </div>
 

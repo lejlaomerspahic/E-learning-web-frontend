@@ -11,6 +11,7 @@ h2 {
 .favorite-items {
   display: flex;
   justify-content: space-between;
+  min-height: 50vh;
 }
 
 .favorite-item {

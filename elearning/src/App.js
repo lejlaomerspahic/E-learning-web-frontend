@@ -27,6 +27,7 @@ import { variable } from "./variable";
 import axios from "axios";
 import Favorites from "./nav/Favorites";
 import Quiz from "./nav/Quiz";
+import CompletedPurchase from "./nav/CompletedPurchase";
 function App() {
   const { user, setUser } = useUser();
   var cookies = document.cookie;
@@ -173,6 +174,14 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <Quiz />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/completedPurchase"
+            element={
+              <ProtectedRoute user={user}>
+                <CompletedPurchase />
               </ProtectedRoute>
             }
           />

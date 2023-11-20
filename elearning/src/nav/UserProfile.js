@@ -55,9 +55,7 @@ const UserProfile = () => {
         token: response.data.token,
       });
       document.cookie = `${"jwtToken"}=${jsonUserData};expires=${expirationDate.toUTCString()};path=/`;
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-    }
+    } catch (error) {}
   };
 
   const handleNameChange = (e) => {

@@ -26,7 +26,6 @@ function Quiz() {
     }
   }, [result]);
 
-  console.log(userResult);
   return (
     <div style={{ color: "grey" }}>
       <Navbar></Navbar>

@@ -10,6 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUser } from "../hook/useUser";
 import { variable } from "../variable";
+import axios from "axios";
 function Cart() {
   const { user } = useUser();
   const [data, setData] = useState({});
@@ -80,7 +81,7 @@ function Cart() {
             ),
             currency: "usd",
             products: data.cartItems?.map((item) => ({
-              product_id: item.product.id,
+              productId: item.product.id,
               count: item.count,
             })),
           }),
@@ -93,13 +94,7 @@ function Cart() {
       const { error } = await stripe.redirectToCheckout({
         sessionId: sessionId,
       });
-
-      if (error) {
-        console.error("Greška prilikom redirekcije na Checkout:", error);
-      }
-    } catch (error) {
-      console.error("Greška prilikom slanja podataka:", error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -108,7 +103,14 @@ function Cart() {
       <h3 style={{ margin: "20px", fontWeight: "600" }}>Shopping cart</h3>
       <div className="product-list">
         {data ? (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             {data.cartItems?.map((cartItem, index) => (
               <div key={index} className="product-containerrr">
                 <div style={{ width: "160px", height: "190px" }}>
@@ -249,7 +251,18 @@ function Cart() {
                       : null}
                   </h4>
                 </div>
-                <button onClick={handlePayment}>Proceed to Checkout</button>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <button
+                    style={{
+                      margin: "0px",
+                      borderRadius: "10px",
+                      marginTop: "20px",
+                    }}
+                    onClick={handlePayment}
+                  >
+                    Proceed to Checkout
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="centered-container">

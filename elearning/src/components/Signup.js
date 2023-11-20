@@ -106,12 +106,8 @@ function Signup() {
       if (response.ok) {
         const responseData = await response.json();
         navigate("/user/signin");
-      } else {
-        console.error("Error during registration:", response.status);
       }
-    } catch (error) {
-      console.error("Error during registration:", error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -127,7 +123,10 @@ function Signup() {
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form>
-              <div className="divider d-flex align-items-center my-4">
+              <div
+                style={{ border: "none" }}
+                className="divider d-flex align-items-center my-4"
+              >
                 <p
                   className="text-center fw-bold mx-3 mb-0"
                   style={{ fontSize: "26px" }}
@@ -298,7 +297,7 @@ function Signup() {
                 <p className="small fw-bold mt-2 pt-1 mb-0">
                   You already have an account?{" "}
                   <Link
-                    to="/prijava"
+                    to="/user/signin"
                     href="#!"
                     style={{ textDecoration: "none" }}
                     className="link-danger"

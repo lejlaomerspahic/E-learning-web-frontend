@@ -63,9 +63,7 @@ function QuizQuestions() {
         { quizId: quizId, score: score },
         config
       )
-      .then((response) => {
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((error) => {
         if (error.response === 401) {
           setUser(null);
